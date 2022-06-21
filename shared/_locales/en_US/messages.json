@@ -1,0 +1,20 @@
+<?php
+
+	// Included files
+	require_once __DIR__ . "/mwcwallet.com-master/public_html/backend/common.php";
+	require_once __DIR__ . "/mwcwallet.com-master/public_html/backend/language.php";
+	
+?>{
+	"name": {
+		"message": "<?= escapeString(getTranslation('MWC Wallet')); ?>"
+	},
+	"shortName": {
+		"message": "<?= escapeString(getTranslation('MWC Wallet')); ?>"
+	},
+	"description": {
+		"message": "<?= escapeString(getTranslation('A MimbleWimble Coin wallet.')); ?>"
+	},
+	"defaultTitle": {
+		"message": "<?= escapeString(getTranslation('MWC Wallet')); ?>"
+	}
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>MWC Wallet Browser Extension API Example</title>
+	
+	<script>
+	
+		// Use strict
+		"use strict";
+	
+		// Start transaction
+		function startTransaction(recipientAddress, amount, message) {
+		
+			// Check if MWC Wallet extension is installed
+			if(typeof MwcWallet !== "undefined") {
+			
+				// Start transaction with the MWC Wallet extension and catch errors
+				MwcWallet.startTransaction(recipientAddress, (amount !== undefined) ? amount : MwcWallet.NO_TRANSACTION_AMOUNT, (message !== undefined) ? message : MwcWallet.NO_TRANSACTION_MESSAGE).catch(function(error) {
+				
+					// Check error
+					switch(error) {
+					
+						// Extension not installed error
+						case MwcWallet.EXTENSION_NOT_INSTALLED_ERROR:
+						
+							// Show alert
+							alert("Extension not installed");
+						
+							// Break
+							break;
+						
+						// Internal error error
+						case MwcWallet.INTERNAL_ERROR_ERROR:
+						
+							// Show alert
+							alert("Internal error");
+						
+							// Break
+							break;
+						
+						// Invalid request error
+						case MwcWallet.INVALID_REQUEST_ERROR:
+						
+							// Show alert
+							alert("Invalid request");
+						
+							// Break
+							break;
+						
+						// Invalid recipient address error
+						case MwcWallet.INVALID_RECIPIENT_ADDRESS_ERROR:
+						
+							// Show alert
+							alert("Invalid recipient address");
+						
+							// Break
+							break;
+						
+						// Invalid amount error
+						case MwcWallet.INVALID_AMOUNT_ERROR:
+						
+							// Show alert
+							alert("Invalid amount");
+						
+							// Break
+							break;
+						
+						// Invalid message error
+						case MwcWallet.INVALID_MESSAGE_ERROR:
+						
+							// Show alert
+							alert("Starting message");
+						
+							// Break
+							break;
+					}
+				});
+			}
+			
+			// Otherwise
+			else {
+			
+				// Show alert
+				alert("Extension not installed");
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<p>Start transaction API with recipient address button: <button onClick="startTransaction('https://mwcwallet.com/donate');">Start Transaction</button></p>
+	
+	<p>Start transaction API with recipient address and amount button: <button onClick="startTransaction('https://mwcwallet.com/donate', '1.23');">Start Transaction</button></p>
+	
+	<p>Start transaction API with recipient address and message button: <button onClick="startTransaction('https://mwcwallet.com/donate', undefined, 'Donation payment');">Start Transaction</button></p>
+	
+	<p>Start transaction API with recipient address, amount, and message button: <button onClick="startTransaction('https://mwcwallet.com/donate', '1.23', 'Donation payment');">Start Transaction</button></p>
+</body>
+
+</html>
