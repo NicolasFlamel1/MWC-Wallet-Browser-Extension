@@ -15,12 +15,10 @@ Run the following commands to build this browser extension.
 ```
 wget "https://github.com/NicolasFlamel1/MWC-Wallet-Browser-Extension/archive/refs/heads/master.zip"
 unzip "./master"
-cd "./MWC-Wallet-Browser-Extension-master/Chrome"
-"./build"
-cd "../Firefox"
-"./build"
-cd "../Safari"
-"./build"
+cd "./MWC-Wallet-Browser-Extension-master"
+cd "./Chrome" && "./build.sh"
+cd "../Firefox" && "./build.sh"
+cd "../Safari" && "./build.sh"
 ```
 This will create the Chrome extension, `MWC-Wallet-Browser-Extension-master/MWC Wallet Chrome Extension.zip`, create the Firefox extension, `MWC-Wallet-Browser-Extension-master/MWC Wallet Firefox Extension.xpi`, and prepare the Safari extension to be compiled. You can finish building the Safari extension by using Xcode to compile the `MWC-Wallet-Browser-Extension-master/Safari/MWC Wallet Extension.xcodeproj` project.
 
