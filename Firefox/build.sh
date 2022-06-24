@@ -61,7 +61,7 @@ SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" 
 cp "./mwcwallet.com-master/third-party libraries instructions.txt" "./temp/README.txt"
 
 # Pack extension
-cd "./temp" && zip -r -FS "../../MWC Wallet Firefox Extension v$VERSION.xpi" . && cd ".."
+cd "./temp" && zip -r -9 -FS "../../MWC Wallet Firefox Extension v$VERSION.xpi" . && cd ".."
 
 # Cleanup
 rm -rf "./temp" "./master.zip" "./mwcwallet.com-master" "./messages.json"
