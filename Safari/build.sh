@@ -11,9 +11,8 @@ cp "../common/api.js" "./temp/"
 cp -R "../common/_locales" "./temp/"
 cp "../common/_locales/en_US/messages.json" "./" && HTTP_ACCEPT_LANGUAGE="en_US" php "./messages.json" > "./temp/_locales/en_US/messages.json"
 
-# Update version
+# Get version
 VERSION=$(grep -Po "(?<=VERSION_NUMBER = \").*(?=\";)" "./temp/backend/common.php")
-sed -i "s/MARKETING_VERSION = .*/MARKETING_VERSION = $VERSION/" "./MWC Wallet Extension.xcodeproj/project.pbxproj"
 
 # Remove unused files
 rm -r "./temp/backend"
@@ -64,7 +63,8 @@ cp "./mwcwallet.com-master/third-party libraries instructions.txt" "./temp/READM
 # Prepare extension
 rm -rf "./MWC Wallet Extension/Resources"
 mv "./temp" "./MWC Wallet Extension/Resources"
-echo "Use Xcode to compile 'MWC Wallet Extension.xcodeproj'"
+sed -i "s/MARKETING_VERSION = .*/MARKETING_VERSION = $VERSION/" "./MWC Wallet Extension.xcodeproj/project.pbxproj"
+echo "Use Xcode to compile 'MWC Wallet Extension.xcodeproj' to an app named 'MWC Wallet Safari Extension Installer v$VERSION'"
 
 # Cleanup
 rm -rf "./master.zip" "./mwcwallet.com-master" "./messages.json"

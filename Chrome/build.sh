@@ -11,6 +11,9 @@ cp "../common/api.js" "./temp/"
 cp -R "../common/_locales" "./temp/"
 cp "../common/_locales/en_US/messages.json" "./" && HTTP_ACCEPT_LANGUAGE="en_US" php "./messages.json" > "./temp/_locales/en_US/messages.json"
 
+# Get version
+VERSION=$(grep -Po "(?<=VERSION_NUMBER = \").*(?=\";)" "./temp/backend/common.php")
+
 # Remove unused files
 rm -r "./temp/backend"
 rm -r "./temp/errors"
@@ -58,7 +61,7 @@ SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" 
 cp "./mwcwallet.com-master/third-party libraries instructions.txt" "./temp/README.txt"
 
 # Pack extension
-cd "./temp" && zip -r -FS "../../MWC Wallet Chrome Extension.zip" . && cd ".."
+cd "./temp" && zip -r -FS "../../MWC Wallet Chrome Extension v$VERSION.zip" . && cd ".."
 
 # Cleanup
 rm -rf "./temp" "./master.zip" "./mwcwallet.com-master" "./messages.json"
