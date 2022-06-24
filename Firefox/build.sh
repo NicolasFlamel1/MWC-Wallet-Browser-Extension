@@ -7,9 +7,9 @@ cp -r "./mwcwallet.com-master/public_html/." "./temp/"
 chmod 777 -R "./temp/"
 cp "./service_worker.js" "./temp/"
 cp "./content_script.js" "./temp/"
-cp "../shared/api.js" "./temp/"
-cp -R "../shared/_locales" "./temp/"
-cp "../shared/_locales/en_US/messages.json" "./" && HTTP_ACCEPT_LANGUAGE="en_US" php "./messages.json" > "./temp/_locales/en_US/messages.json"
+cp "../common/api.js" "./temp/"
+cp -R "../common/_locales" "./temp/"
+cp "../common/_locales/en_US/messages.json" "./" && HTTP_ACCEPT_LANGUAGE="en_US" php "./messages.json" > "./temp/_locales/en_US/messages.json"
 
 # Remove unused files
 rm -r "./temp/backend"
