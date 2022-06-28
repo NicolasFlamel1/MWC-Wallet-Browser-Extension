@@ -63,7 +63,7 @@ cp "./mwcwallet.com-master/third-party libraries instructions.txt" "./temp/READM
 # Prepare extension
 rm -rf "./MWC Wallet Extension/Resources"
 mv "./temp" "./MWC Wallet Extension/Resources"
-sed -i "s/MARKETING_VERSION = .*/MARKETING_VERSION = $VERSION/" "./MWC Wallet Extension.xcodeproj/project.pbxproj"
+sed -i "s/MARKETING_VERSION = .*/MARKETING_VERSION = $VERSION;/" "./MWC Wallet Extension.xcodeproj/project.pbxproj"
 echo "Use Xcode to compile 'MWC Wallet Extension.xcodeproj' into an app named 'MWC Wallet Safari Extension Installer v$VERSION'"
 
 # Cleanup
