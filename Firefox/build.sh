@@ -8,8 +8,14 @@ chmod 777 -R "./temp/"
 cp "./service_worker.js" "./temp/"
 cp "./content_script.js" "./temp/"
 cp "../common/api.js" "./temp/"
-cp -R "../common/_locales" "./temp/"
-cp "../common/_locales/en_US/messages.json" "./" && HTTP_ACCEPT_LANGUAGE="en_US" php "./messages.json" > "./temp/_locales/en_US/messages.json"
+
+# Create locales
+mkdir "./temp/_locales"
+for file in ./temp/languages/*.php; do
+	language=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $file | sed -e 's/-/_/g')
+	mkdir "./temp/_locales/$language"
+	HTTP_ACCEPT_LANGUAGE="$language" php "../common/messages.json" > "./temp/_locales/$language/messages.json"
+done
 
 # Get version
 VERSION=$(grep -Po "(?<=VERSION_NUMBER = \").*(?=\";)" "./temp/backend/common.php")
@@ -33,6 +39,9 @@ SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" 
 # Compile index.html
 SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" NO_MINIFIED_FILES=""  HTTP_SERVER_ADDRESS="https://mwcwallet.com" TOR_SERVER_ADDRESS="http://mwcwalletmiq3gdkmfbqlytxunvlxyli4m6zrqozk7xjc353ewqb6bad.onion" php "./mwcwallet.com-master/public_html/index.html" > "./temp/index.html"
 sed -i "s/rel=\"preload\"/rel=\"prefetch\"/" "./temp/index.html"
+sed -i "/<link .* rel=\"manifest\".*>/d" "./temp/index.html"
+sed -i "/<meta name=\"msapplication-config\".*>/d" "./temp/index.html"
+sed -i "/<meta name=\"msapplication-starturl\".*>/d" "./temp/index.html"
 
 # Move scripts from index.html to index.js
 sed -i "s/ onerror=\"[^\"]*\"//" "./temp/index.html"

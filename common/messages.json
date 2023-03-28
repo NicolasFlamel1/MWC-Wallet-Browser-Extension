@@ -1,8 +1,8 @@
 <?php
 
 	// Included files
-	require_once __DIR__ . "/mwcwallet.com-master/public_html/backend/common.php";
-	require_once __DIR__ . "/mwcwallet.com-master/public_html/backend/language.php";
+	require_once "./mwcwallet.com-master/public_html/backend/common.php";
+	require_once "./mwcwallet.com-master/public_html/backend/language.php";
 	
 ?>{
 	"name": {
