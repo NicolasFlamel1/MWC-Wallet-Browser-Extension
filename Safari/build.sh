@@ -11,10 +11,10 @@ cp "../common/api.js" "./temp/"
 
 # Create locales
 mkdir "./temp/_locales"
-for file in ./temp/languages/*.php; do
-	language=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $file | sed -e 's/-/_/g')
-	mkdir "./temp/_locales/$language"
-	HTTP_ACCEPT_LANGUAGE="$language" php "../common/messages.json" > "./temp/_locales/$language/messages.json"
+for FILE in ./temp/languages/*.php; do
+	LANGUAGE=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE | sed -e 's/-/_/g')
+	mkdir "./temp/_locales/$LANGUAGE"
+	HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "../common/messages.json" > "./temp/_locales/$LANGUAGE/messages.json"
 done
 
 # Get version
