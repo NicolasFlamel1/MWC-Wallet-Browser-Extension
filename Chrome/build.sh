@@ -43,6 +43,7 @@ sed -i "/<link .* rel=\"manifest\".*>/d" "./temp/index.html"
 sed -i "/<meta name=\"msapplication-config\".*>/d" "./temp/index.html"
 sed -i "/<meta name=\"msapplication-starturl\".*>/d" "./temp/index.html"
 sed -i "/<link rel=\"alternate\".*>/d" "./temp/index.html"
+sed -i "/<link rel=\"canonical\".*>/d" "./temp/index.html"
 
 # Move scripts from index.html to index.js
 sed -i "s/ onerror=\"[^\"]*\"//" "./temp/index.html"
