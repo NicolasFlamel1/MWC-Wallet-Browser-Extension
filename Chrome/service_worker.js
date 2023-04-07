@@ -534,7 +534,7 @@ function addContextMenuItems() {
 		],
 		
 		// Title
-		"title": chrome["i18n"].getMessage("openInNewTab").replace(/\$/gu, "$$")
+		"title": chrome["i18n"].getMessage("openInNewTab").replace(/\$/gu, "$$$")
 	});
 	
 	// Create open in new window context menu item
@@ -551,7 +551,7 @@ function addContextMenuItems() {
 		],
 		
 		// Title
-		"title": chrome["i18n"].getMessage("openInNewWindow").replace(/\$/gu, "$$")
+		"title": chrome["i18n"].getMessage("openInNewWindow").replace(/\$/gu, "$$$")
 	});
 }
 
