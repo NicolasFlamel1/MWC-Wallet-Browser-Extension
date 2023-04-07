@@ -18,9 +18,9 @@
 		"message": "<?= escapeString(getTranslation('MWC Wallet')); ?>"
 	},
 	"openInNewTab": {
-		"message": "<?= escapeString(getTranslation('Open in new tab')); ?>"
+		"message": "<?= escapeString(getTranslation('Open in New Tab')); ?>"
 	},
 	"openInNewWindow": {
-		"message": "<?= escapeString(getTranslation('Open in new window')); ?>"
+		"message": "<?= escapeString(getTranslation('Open in New Window')); ?>"
 	}
 }

@@ -526,7 +526,7 @@ function addContextMenuItems() {
 		],
 		
 		// Title
-		"title": browser["i18n"].getMessage("openInNewTab").replace(/\$/gu, "$$$")
+		"title": sanitizeContextMenuTitle(browser["i18n"].getMessage("openInNewTab"))
 	});
 	
 	// Create open in new window context menu item
@@ -543,7 +543,7 @@ function addContextMenuItems() {
 		],
 		
 		// Title
-		"title": browser["i18n"].getMessage("openInNewWindow").replace(/\$/gu, "$$$")
+		"title": sanitizeContextMenuTitle(browser["i18n"].getMessage("openInNewWindow"))
 	});
 }
 
@@ -797,4 +797,11 @@ function startTransaction(recipientAddress, amount, message) {
 			reject(INTERNAL_ERROR_ERROR);
 		});
 	});
+}
+
+// Sanitize context menu title
+function sanitizeContextMenuTitle(title) {
+
+	// Return escaped title
+	return title.replace(/\$/gu, "$$$");
 }

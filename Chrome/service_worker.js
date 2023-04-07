@@ -534,7 +534,7 @@ function addContextMenuItems() {
 		],
 		
 		// Title
-		"title": chrome["i18n"].getMessage("openInNewTab").replace(/\$/gu, "$$$")
+		"title": sanitizeContextMenuTitle(chrome["i18n"].getMessage("openInNewTab"))
 	});
 	
 	// Create open in new window context menu item
@@ -551,7 +551,7 @@ function addContextMenuItems() {
 		],
 		
 		// Title
-		"title": chrome["i18n"].getMessage("openInNewWindow").replace(/\$/gu, "$$$")
+		"title": sanitizeContextMenuTitle(chrome["i18n"].getMessage("openInNewWindow"))
 	});
 }
 
@@ -805,4 +805,11 @@ function startTransaction(recipientAddress, amount, message) {
 			reject(INTERNAL_ERROR_ERROR);
 		});
 	});
+}
+
+// Sanitize context menu title
+function sanitizeContextMenuTitle(title) {
+
+	// Return escaped title with all but the first letter changed to lower case
+	return ([...title][0] + [...title].slice(1).join("").toLocaleLowerCase(chrome["i18n"].getUILanguage())).replace(/\$/gu, "$$$");
 }
