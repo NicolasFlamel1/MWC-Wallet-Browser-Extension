@@ -69,6 +69,7 @@
 	"permissions": [
 		"unlimitedStorage",
 		"storage",
+		"contextMenus",
 		"*://*/*"
 	],
 	"background": {

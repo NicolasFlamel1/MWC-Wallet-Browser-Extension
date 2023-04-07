@@ -71,7 +71,8 @@
 	"permissions": [
 		"unlimitedStorage",
 		"storage",
-		"scripting"
+		"scripting",
+		"contextMenus"
 	],
 	"background": {
 		"service_worker": "./service_worker.js"

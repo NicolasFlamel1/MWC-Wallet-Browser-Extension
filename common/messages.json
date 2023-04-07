@@ -16,5 +16,11 @@
 	},
 	"defaultTitle": {
 		"message": "<?= escapeString(getTranslation('MWC Wallet')); ?>"
+	},
+	"openInNewTab": {
+		"message": "<?= escapeString(getTranslation('Open in new tab')); ?>"
+	},
+	"openInNewWindow": {
+		"message": "<?= escapeString(getTranslation('Open in new window')); ?>"
 	}
 }

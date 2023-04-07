@@ -67,6 +67,12 @@ const INVALID_AMOUNT_ERROR = 4;
 // Invalid message error
 const INVALID_MESSAGE_ERROR = 5;
 
+// Open in new tab ID
+const OPEN_IN_NEW_TAB_ID = "OPEN_IN_NEW_TAB_ID";
+
+// Open in new window ID
+const OPEN_IN_NEW_WINDOW_ID = "OPEN_IN_NEW_WINDOW_ID";
+
 
 // Events
 
@@ -75,6 +81,9 @@ browser["runtime"]["onStartup"].addListener(function() {
 
 	// Clear window ID
 	browser["storage"]["local"].remove("Window ID");
+	
+	// Add context menu items
+	addContextMenuItems();
 });
 
 // Installed event
@@ -82,6 +91,9 @@ browser["runtime"]["onInstalled"].addListener(function() {
 
 	// Clear window ID
 	browser["storage"]["local"].remove("Window ID");
+	
+	// Add context menu items
+	addContextMenuItems();
 	
 	// Get all windows
 	browser["windows"].getAll({
@@ -449,8 +461,91 @@ browser["runtime"]["onMessage"].addListener(function(request, sender, sendRespon
 	}
 });
 
+// Context menu click event
+browser["contextMenus"]["onClicked"].addListener(function(info) {
+
+	// Check menu item ID
+	switch(info["menuItemId"]) {
+	
+		// Open in new tab ID
+		case OPEN_IN_NEW_TAB_ID:
+
+			// Create tab
+			browser["tabs"].create({
+			
+				// URL
+				"url": browser["runtime"].getURL("./index.html")
+			
+			// Catch errors
+			}).catch(function(error) {
+			
+			});
+			
+			// Break
+			break;
+		
+		// Open in new window ID
+		case OPEN_IN_NEW_WINDOW_ID:
+		
+			// Create window
+			browser["windows"].create({
+			
+				// URL
+				"url": browser["runtime"].getURL("./index.html")
+			
+			// Catch errors
+			}).catch(function(error) {
+			
+			});
+			
+			// Break
+			break;
+	}
+});
+
 
 // Supporting function implementation
+
+// Add context menu items
+function addContextMenuItems() {
+
+	// Remove all context menu items
+	browser["contextMenus"].removeAll();
+
+	// Create open in new tab context menu item
+	browser["contextMenus"].create({
+	
+		// ID
+		"id": OPEN_IN_NEW_TAB_ID,
+	
+		// Contexts
+		"contexts": [
+		
+			// Browser action
+			"browser_action"
+		],
+		
+		// Title
+		"title": browser["i18n"].getMessage("openInNewTab").replace(/\$/gu, "$$")
+	});
+	
+	// Create open in new window context menu item
+	browser["contextMenus"].create({
+	
+		// ID
+		"id": OPEN_IN_NEW_WINDOW_ID,
+	
+		// Contexts
+		"contexts": [
+		
+			// Browser action
+			"browser_action"
+		],
+		
+		// Title
+		"title": browser["i18n"].getMessage("openInNewWindow").replace(/\$/gu, "$$")
+	});
+}
 
 // Is number string
 function isNumberString(string) {
