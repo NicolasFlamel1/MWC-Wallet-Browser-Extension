@@ -19,6 +19,12 @@ for FILE in ./temp/languages/*.php; do
 		HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "../common/messages.json" > "./temp/_locales/$EXTENSION_LOCALE_CODE/messages.json"
 	fi
 done
+for FILE in ./temp/languages/*.php; do
+	LANGUAGE=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE | sed -e 's/-/_/g')
+	rm -rf "./temp/_locales/$LANGUAGE"
+	mkdir "./temp/_locales/$LANGUAGE"
+	HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "../common/messages.json" > "./temp/_locales/$LANGUAGE/messages.json"
+done
 
 # Get version
 VERSION=$(grep -Po "(?<=VERSION_NUMBER = \").*(?=\";)" "./temp/backend/common.php")
