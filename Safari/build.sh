@@ -12,7 +12,7 @@ cp "../common/api.js" "./temp/"
 # Create locales
 mkdir "./temp/_locales"
 for FILE in ./temp/languages/*.php; do
-	LANGUAGE=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE | sed -e 's/-/_/g')
+	LANGUAGE=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE)
 	EXTENSION_LOCALE_CODE=$(grep -Po '(?<="Extension Locale Code" => ")[^"]+(?=")' $FILE | sed -e 's/-/_/g')
 	if [[ -n $EXTENSION_LOCALE_CODE ]]; then
 		mkdir "./temp/_locales/$EXTENSION_LOCALE_CODE"
@@ -20,10 +20,11 @@ for FILE in ./temp/languages/*.php; do
 	fi
 done
 for FILE in ./temp/languages/*.php; do
-	LANGUAGE=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE | sed -e 's/-/_/g')
-	rm -rf "./temp/_locales/$LANGUAGE"
-	mkdir "./temp/_locales/$LANGUAGE"
-	HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "../common/messages.json" > "./temp/_locales/$LANGUAGE/messages.json"
+	LANGUAGE=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE)
+	LANGUAGE_IDENTIFIER=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE | sed -e 's/-/_/g')
+	rm -rf "./temp/_locales/$LANGUAGE_IDENTIFIER"
+	mkdir "./temp/_locales/$LANGUAGE_IDENTIFIER"
+	HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "../common/messages.json" > "./temp/_locales/$LANGUAGE_IDENTIFIER/messages.json"
 done
 
 # Get version
