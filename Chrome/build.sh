@@ -61,7 +61,7 @@ sed -i "s/ onload=\"[^\"]*\"//" "./temp/index.html"
 grep -Pzo "(?s)(?<=<script>).*?(?=</script>)" "./temp/index.html" > "./temp/index.js"
 sed -i "s/\x00//" "./temp/index.js"
 sed -i "/<script>/,/<\/script>/d" "./temp/index.html"
-sed -i "0,/<script/s//<script src=\".\/index.js\" type=\"application\/javascript\" charset=\"UTF-8\"><\/script>\n\t<script/" "./temp/index.html"
+sed -i "0,/--><script/s//--><script src=\".\/index.js\" type=\"application\/javascript\" charset=\"UTF-8\"><\/script><!--\n\t--><script/" "./temp/index.html"
 
 # Compile styles
 SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" NO_MINIFIED_FILES=""  HTTPS_SERVER_ADDRESS="https://mwcwallet.com" TOR_SERVER_ADDRESS="http://mwcwalletmiq3gdkmfbqlytxunvlxyli4m6zrqozk7xjc353ewqb6bad.onion" php "./mwcwallet.com-master/public_html/fonts/btc/btc.css" > "./temp/fonts/btc/btc.css"
