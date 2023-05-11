@@ -29,7 +29,7 @@ function getResponse(event) {
 	try {
 
 		// Check if sender is the API
-		if(event["origin"] === location["origin"] && typeof event["data"] === "object" && event["data"] !== null && "Extension ID" in event["data"] === true && event["data"]["Extension ID"] === (new URL(browser["runtime"].getURL("./api.js")))["hostname"] && "Request" in event["data"] === true && "Index" in event["data"] === true) {
+		if(event["origin"] === location["origin"] && typeof event["data"] === "object" && event["data"] !== null && "Extension ID" in event["data"] === true && event["data"]["Extension ID"] === (new URL(browser["runtime"].getURL("./api.js")))["hostname"] && "Wallet Type" in event["data"] === true && "Network Type" in event["data"] === true && "Request" in event["data"] === true && "Index" in event["data"] === true) {
 		
 			// Send request to the service worker and application
 			browser["runtime"].sendMessage(event["data"]).then(function(response) {

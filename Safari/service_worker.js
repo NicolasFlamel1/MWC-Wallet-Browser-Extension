@@ -13,15 +13,6 @@ const NO_TRANSACTION_MESSAGE = null;
 // Number string pattern
 const NUMBER_STRING_PATTERN = /^[+-]?(?:0(?:\.\d+)?|[1-9]\d*(?:\.\d+)?|\.\d+)$/u;
 
-// Value number base
-const VALUE_NUMBER_BASE = 1E9;
-
-// Maximum amount precision
-const MAXIMUM_AMOUNT_PRECISION = Math.log10(VALUE_NUMBER_BASE);
-
-// Minimum amount
-const MINIMUM_AMOUNT = 1 / VALUE_NUMBER_BASE;
-
 // Index not found
 const INDEX_NOT_FOUND = -1;
 
@@ -55,23 +46,89 @@ const EXTENSION_NOT_INSTALLED_ERROR = 0;
 // Internal error error
 const INTERNAL_ERROR_ERROR = 1;
 
+// Invalid wallet type error
+const INVALID_WALLET_TYPE_ERROR = 2;
+
+// Invalid network type error
+const INVALID_NETWORK_TYPE_ERROR = 3;
+
 // Invalid request error
-const INVALID_REQUEST_ERROR = 2;
+const INVALID_REQUEST_ERROR = 4;
 
 // Invalid recipient address error
-const INVALID_RECIPIENT_ADDRESS_ERROR = 3;
+const INVALID_RECIPIENT_ADDRESS_ERROR = 5;
 
 // Invalid amount error
-const INVALID_AMOUNT_ERROR = 4;
+const INVALID_AMOUNT_ERROR = 6;
 
 // Invalid message error
-const INVALID_MESSAGE_ERROR = 5;
+const INVALID_MESSAGE_ERROR = 7;
 
 // Open in new tab ID
 const OPEN_IN_NEW_TAB_ID = "OPEN_IN_NEW_TAB_ID";
 
 // Open in new window ID
 const OPEN_IN_NEW_WINDOW_ID = "OPEN_IN_NEW_WINDOW_ID";
+
+// Wallet types
+const WALLET_TYPES = [
+
+	// MWC
+	"MimbleWimble Coin",
+	
+	// GRIN
+	"Grin",
+	
+	// Epic Cash
+	"Epic Cash"
+];
+
+// Network types
+const NETWORK_TYPES = {
+
+	// MWC
+	"MimbleWimble Coin": [
+	
+		// Mainnet
+		"Mainnet",
+		
+		// Floonet
+		"Floonet"
+	],
+	
+	// GRIN
+	"Grin": [
+	
+		// Mainnet
+		"Mainnet",
+		
+		// Testnet
+		"Testnet"
+	],
+	
+	// Epic Cash
+	"Epic Cash": [
+	
+		// Mainnet
+		"Mainnet",
+		
+		// Floonet
+		"Floonet"
+	]
+};
+
+// Value number bases
+const VALUE_NUMBER_BASES = {
+
+	// MWC
+	"MimbleWimble Coin": 1E9,
+	
+	// GRIN
+	"Grin": 1E9,
+	
+	// Epic Cash
+	"Epic Cash": 1E8
+};
 
 
 // Events
@@ -340,83 +397,53 @@ browser["browserAction"]["onClicked"].addListener(function() {
 browser["runtime"]["onMessage"].addListener(function(request, sender, sendResponse) {
 
 	// Check if sender is the content script
-	if(sender["id"] === browser["runtime"]["id"] && typeof request === "object" && request !== null && "Request" in request === true && "Index" in request === true) {
+	if(sender["id"] === browser["runtime"]["id"] && typeof request === "object" && request !== null && "Wallet Type" in request === true && "Network Type" in request === true && "Request" in request === true && "Index" in request === true) {
 	
-		// Check request
-		switch(request["Request"]) {
+		// Check if wallet type is invalid
+		if(WALLET_TYPES.indexOf(request["Wallet Type"]) === INDEX_NOT_FOUND) {
 		
-			// Start transaction
-			case "Start Transaction":
+			// Send response
+			sendResponse({
 			
-				// Check if recipient address isn't valid
-				if("Recipient Address" in request === false || typeof request["Recipient Address"] !== "string" || request["Recipient Address"]["length"] === 0) {
+				// Response
+				"Response": false,
 				
-					// Send response
-					sendResponse({
-					
-						// Response
-						"Response": false,
-						
-						// Error
-						"Error": INVALID_RECIPIENT_ADDRESS_ERROR,
-						
-						// Index
-						"Index": request["Index"]
-					});
-				}
+				// Error
+				"Error": INVALID_WALLET_TYPE_ERROR,
 				
-				// Otherwise check if amount isn't valid
-				else if("Amount" in request === false || (request["Amount"] !== NO_TRANSACTION_AMOUNT && (isNumberString(request["Amount"]) === false || getNumberStringPrecision(request["Amount"]) > MAXIMUM_AMOUNT_PRECISION || parseFloat(removeTrailingZeros(request["Amount"])) < MINIMUM_AMOUNT))) {
-				
-					// Send response
-					sendResponse({
-					
-						// Response
-						"Response": false,
-						
-						// Error
-						"Error": INVALID_AMOUNT_ERROR,
-						
-						// Index
-						"Index": request["Index"]
-					});
-				}
-				
-				// Otherwise check if message isn't valid
-				else if("Message" in request === false || (request["Message"] !== NO_TRANSACTION_MESSAGE && typeof request["Message"] !== "string")) {
-				
-					// Send response
-					sendResponse({
-					
-						// Response
-						"Response": false,
-						
-						// Error
-						"Error": INVALID_MESSAGE_ERROR,
-						
-						// Index
-						"Index": request["Index"]
-					});
-				}
-				
-				// Otherwise
-				else {
+				// Index
+				"Index": request["Index"]
+			});
+		}
 		
-					// Start transaction
-					startTransaction(request["Recipient Address"], request["Amount"], request["Message"]).then(function() {
-					
-						// Send response
-						sendResponse({
-						
-							// Response
-							"Response": true,
-							
-							// Index
-							"Index": request["Index"]
-						});
-					
-					// Catch errors
-					}).catch(function(error) {
+		// Otherwise check if network type is invalid
+		else if(NETWORK_TYPES[request["Wallet Type"]].indexOf(request["Network Type"]) === INDEX_NOT_FOUND) {
+		
+			// Send response
+			sendResponse({
+			
+				// Response
+				"Response": false,
+				
+				// Error
+				"Error": INVALID_NETWORK_TYPE_ERROR,
+				
+				// Index
+				"Index": request["Index"]
+			});
+		}
+		
+		// Otherwise
+		else {
+		
+			// Check request
+			switch(request["Request"]) {
+			
+				// Start transaction
+				case "Start Transaction":
+				
+					// Check if recipient address isn't valid
+					if("Recipient Address" in request === false || typeof request["Recipient Address"] !== "string" || request["Recipient Address"]["length"] === 0) {
 					
 						// Send response
 						sendResponse({
@@ -425,38 +452,106 @@ browser["runtime"]["onMessage"].addListener(function(request, sender, sendRespon
 							"Response": false,
 							
 							// Error
-							"Error": error,
+							"Error": INVALID_RECIPIENT_ADDRESS_ERROR,
 							
 							// Index
 							"Index": request["Index"]
 						});
+					}
+					
+					// Otherwise check if amount isn't valid
+					else if("Amount" in request === false || (request["Amount"] !== NO_TRANSACTION_AMOUNT && (isNumberString(request["Amount"]) === false || getNumberStringPrecision(request["Amount"]) > Math.log10(VALUE_NUMBER_BASES[request["Wallet Type"]]) || parseFloat(removeTrailingZeros(request["Amount"])) < 1 / VALUE_NUMBER_BASES[request["Wallet Type"]]))) {
+					
+						// Send response
+						sendResponse({
+						
+							// Response
+							"Response": false,
+							
+							// Error
+							"Error": INVALID_AMOUNT_ERROR,
+							
+							// Index
+							"Index": request["Index"]
+						});
+					}
+					
+					// Otherwise check if message isn't valid
+					else if("Message" in request === false || (request["Message"] !== NO_TRANSACTION_MESSAGE && typeof request["Message"] !== "string")) {
+					
+						// Send response
+						sendResponse({
+						
+							// Response
+							"Response": false,
+							
+							// Error
+							"Error": INVALID_MESSAGE_ERROR,
+							
+							// Index
+							"Index": request["Index"]
+						});
+					}
+					
+					// Otherwise
+					else {
+			
+						// Start transaction
+						startTransaction(request["Wallet Type"], request["Network Type"], request["Recipient Address"], request["Amount"], request["Message"]).then(function() {
+						
+							// Send response
+							sendResponse({
+							
+								// Response
+								"Response": true,
+								
+								// Index
+								"Index": request["Index"]
+							});
+						
+						// Catch errors
+						}).catch(function(error) {
+						
+							// Send response
+							sendResponse({
+							
+								// Response
+								"Response": false,
+								
+								// Error
+								"Error": error,
+								
+								// Index
+								"Index": request["Index"]
+							});
+						});
+						
+						// Return true
+						return true;
+					}
+					
+					// Break
+					break;
+				
+				// Default
+				default:
+				
+					// Send response
+					sendResponse({
+					
+						// Response
+						"Response": false,
+						
+						// Error
+						"Error": INVALID_REQUEST_ERROR,
+						
+						// Index
+						"Index": request["Index"]
 					});
-					
-					// Return true
-					return true;
-				}
 				
-				// Break
-				break;
-			
-			// Default
-			default:
-			
-				// Send response
-				sendResponse({
-				
-					// Response
-					"Response": false,
-					
-					// Error
-					"Error": INVALID_REQUEST_ERROR,
-					
-					// Index
-					"Index": request["Index"]
-				});
-			
-				// Break
-				break;
+					// Break
+					break;
+			}
 		}
 	}
 });
@@ -606,7 +701,7 @@ function getNumberStringPrecision(string) {
 }
 
 // Start transaction
-function startTransaction(recipientAddress, amount, message) {
+function startTransaction(walletType, networkType, recipientAddress, amount, message) {
 
 	// Return promise
 	return new Promise(function(resolve, reject) {
@@ -649,7 +744,7 @@ function startTransaction(recipientAddress, amount, message) {
 						return browser["windows"].create({
 						
 							// URL
-							"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
+							"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
 							
 							// Type
 							"type": "popup",
@@ -698,7 +793,7 @@ function startTransaction(recipientAddress, amount, message) {
 					return browser["windows"].create({
 					
 						// URL
-						"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
+						"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
 						
 						// Type
 						"type": "popup",
@@ -748,7 +843,7 @@ function startTransaction(recipientAddress, amount, message) {
 				return browser["windows"].create({
 				
 					// URL
-					"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
+					"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
 					
 					// Type
 					"type": "popup",

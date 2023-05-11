@@ -17,7 +17,7 @@
 			if(typeof MwcWallet !== "undefined") {
 			
 				// Start transaction with the MWC Wallet extension and catch errors
-				MwcWallet.startTransaction(recipientAddress, (amount !== undefined) ? amount : MwcWallet.NO_TRANSACTION_AMOUNT, (message !== undefined) ? message : MwcWallet.NO_TRANSACTION_MESSAGE).catch(function(error) {
+				MwcWallet.startTransaction(MwcWallet.MWC_WALLET_TYPE, MwcWallet.MAINNET_NETWORK_TYPE, recipientAddress, (amount !== undefined) ? amount : MwcWallet.NO_TRANSACTION_AMOUNT, (message !== undefined) ? message : MwcWallet.NO_TRANSACTION_MESSAGE).catch(function(error) {
 				
 					// Check error
 					switch(error) {
@@ -36,6 +36,24 @@
 						
 							// Show alert
 							alert("Internal error");
+						
+							// Break
+							break;
+						
+						// Invalid wallet type error
+						case MwcWallet.INVALID_WALLET_TYPE_ERROR:
+						
+							// Show alert
+							alert("Invalid wallet type");
+						
+							// Break
+							break;
+						
+						// Invalid network type error
+						case MwcWallet.INVALID_NETWORK_TYPE_ERROR:
+						
+							// Show alert
+							alert("Invalid network type");
 						
 							// Break
 							break;

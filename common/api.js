@@ -13,7 +13,7 @@ try {
 		// Public
 
 			// Start transaction
-			"startTransaction": function(recipientAddress, amount = MwcWallet.NO_TRANSACTION_AMOUNT, message = MwcWallet.NO_TRANSACTION_MESSAGE) {
+			"startTransaction": function(walletType, networkType, recipientAddress, amount = MwcWallet.NO_TRANSACTION_AMOUNT, message = MwcWallet.NO_TRANSACTION_MESSAGE) {
 			
 				// Set self
 				const self = this;
@@ -75,6 +75,12 @@ try {
 						
 							// Extension ID
 							"Extension ID": self.extensionId,
+							
+							// Wallet type
+							"Wallet Type": walletType,
+							
+							// Network type
+							"Network Type": networkType,
 						
 							// Request
 							"Request": "Start Transaction",
@@ -114,17 +120,41 @@ try {
 			// Internal error error
 			"INTERNAL_ERROR_ERROR": 1,
 			
+			// Invalid wallet type error
+			"INVALID_WALLET_TYPE_ERROR": 2,
+			
+			// Invalid network type error
+			"INVALID_NETWORK_TYPE_ERROR": 3,
+			
 			// Invalid request error
-			"INVALID_REQUEST_ERROR": 2,
+			"INVALID_REQUEST_ERROR": 4,
 			
 			// Invalid recipient address error
-			"INVALID_RECIPIENT_ADDRESS_ERROR": 3,
+			"INVALID_RECIPIENT_ADDRESS_ERROR": 5,
 			
 			// Invalid amount error
-			"INVALID_AMOUNT_ERROR": 4,
+			"INVALID_AMOUNT_ERROR": 6,
 			
 			// Invalid message error
-			"INVALID_MESSAGE_ERROR": 5,
+			"INVALID_MESSAGE_ERROR": 7,
+			
+			// MWC wallet type
+			"MWC_WALLET_TYPE": "MimbleWimble Coin",
+			
+			// GRIN wallet type
+			"GRIN_WALLET_TYPE": "Grin",
+			
+			// EPIC wallet type
+			"EPIC_WALLET_TYPE": "Epic Cash",
+			
+			// Mainnet network type
+			"MAINNET_NETWORK_TYPE": "Mainnet",
+			
+			// Testnet network type
+			"TESTNET_NETWORK_TYPE": "Testnet",
+			
+			// Floonet network type
+			"FLOONET_NETWORK_TYPE": "Floonet",
 			
 		// Private
 		
