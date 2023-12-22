@@ -4,7 +4,7 @@
 Browser extension version of the MimbleWimble Coin web wallet, [mwcwallet.com](https://mwcwallet.com), for Chrome, Firefox, and Safari.
 
 ### Installing
-This extension can be installed on Chrome from the [Chrome Web Store](https://chrome.google.com/webstore/detail/mwc-wallet/ahhdnimkkpkmclgcnbchlgijhmieongp).
+This extension can be installed on Chrome from the [Chrome Web Store](https://chromewebstore.google.com/detail/mwc-wallet/ahhdnimkkpkmclgcnbchlgijhmieongp).
 
 This extension can be installed on Firefox from the [Firefox Add-ons site](https://addons.mozilla.org/en-US/firefox/addon/mwc-wallet/).
 
