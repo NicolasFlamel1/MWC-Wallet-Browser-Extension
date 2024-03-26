@@ -11,7 +11,11 @@ This extension can be installed on Firefox from the [Firefox Add-ons site](https
 This extension can be used on Safari by manually installing it and enabling Safari to use unsigned extensions.
 
 ### Building
-Run the following commands to build this browser extension.
+Run the following command to install the dependencies required to build this browser extension.
+```
+sudo apt install php php-intl php-mbstring unzip wget grep sed coreutils zip
+```
+Then run the following commands to build this browser extension.
 ```
 wget "https://github.com/NicolasFlamel1/MWC-Wallet-Browser-Extension/archive/refs/heads/master.zip"
 unzip "./master"
