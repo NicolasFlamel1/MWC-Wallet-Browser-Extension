@@ -28,6 +28,6 @@ This will create the Chrome extension, `MWC-Wallet-Browser-Extension-master/MWC 
 
 ### API
 This extension injects a `MwcWallet` object into every site which allows those sites to interact with this extension. That object provides the following APIs.
-1. `startTransaction(recipientAddress, amount, message)`: Launches the wallet if it is not already open and prompts the user to approve sending a payment with the provided parameters.
+1. `startTransaction(walletType, networkType, recipientAddress, amount = MwcWallet.NO_TRANSACTION_AMOUNT, message = MwcWallet.NO_TRANSACTION_MESSAGE)`: Launches the wallet if it is not already open and prompts the user to approve sending a payment with the provided parameters.
 
 Examples of this extension's APIs are available in [api_example.html](https://github.com/NicolasFlamel1/MWC-Wallet-Browser-Extension/blob/master/api_example.html).
