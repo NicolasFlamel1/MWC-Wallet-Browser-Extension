@@ -82,7 +82,6 @@
 		0AB3FCC12818F8C200502C3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0AB3FCC32818F8C300502C3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AB3FCC52818F8C300502C3C /* MWC_Wallet_Extension_Installer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MWC_Wallet_Extension_Installer.entitlements; sourceTree = "<group>"; };
-		0AB3FCC62818F8C300502C3C /* MWC Wallet_Extension_Installer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "MWC Wallet_Extension_Installer.entitlements"; sourceTree = "<group>"; };
 		0AB3FCCB2818F8C400502C3C /* MWC Wallet Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MWC Wallet Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AB3FCD02818F8C400502C3C /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		0AB3FCE32818F8C400502C3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,7 +132,6 @@
 				0AB3FCC02818F8C200502C3C /* Main.storyboard */,
 				0AB3FCC32818F8C300502C3C /* Assets.xcassets */,
 				0AB3FCC52818F8C300502C3C /* MWC_Wallet_Extension_Installer.entitlements */,
-				0AB3FCC62818F8C300502C3C /* MWC Wallet_Extension_Installer.entitlements */,
 				0AB3FCB42818F8C200502C3C /* Resources */,
 			);
 			path = "MWC Wallet Extension Installer";
@@ -525,7 +523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "MWC Wallet/MWC Wallet.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Extension Installer/MWC_Wallet_Extension_Installer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -562,7 +560,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "MWC Wallet/MWC Wallet.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Extension Installer/MWC_Wallet_Extension_Installer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
