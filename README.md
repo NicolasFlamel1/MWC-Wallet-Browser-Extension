@@ -8,7 +8,7 @@ This extension can be installed on Chrome from the [Chrome Web Store](https://ch
 
 This extension can be installed on Firefox from the [Firefox Add-ons site](https://addons.mozilla.org/en-US/firefox/addon/mwc-wallet/).
 
-This extension can be used on Safari by downloading it from its [releases](https://github.com/NicolasFlamel1/MWC-Wallet-Browser-Extension/releases), installing it, and enabling Safari to use unsigned extensions.
+This extension can be installed on Safari by downloading it from its [releases](https://github.com/NicolasFlamel1/MWC-Wallet-Browser-Extension/releases), installing it, and enabling Safari to use unsigned extensions.
 
 ### Building
 Run the following command to install the dependencies required to build this browser extension.
