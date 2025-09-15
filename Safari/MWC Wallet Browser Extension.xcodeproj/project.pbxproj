@@ -29,7 +29,7 @@
 		0AB3FCBF2818F8C200502C3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3FCBE2818F8C200502C3C /* ViewController.swift */; };
 		0AB3FCC22818F8C200502C3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AB3FCC02818F8C200502C3C /* Main.storyboard */; };
 		0AB3FCC42818F8C300502C3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AB3FCC32818F8C300502C3C /* Assets.xcassets */; };
-		0AB3FCCC2818F8C400502C3C /* MWC Wallet Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0AB3FCCB2818F8C400502C3C /* MWC Wallet Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0AB3FCCC2818F8C400502C3C /* MWC Wallet Browser Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0AB3FCCB2818F8C400502C3C /* MWC Wallet Browser Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0AB3FCD12818F8C400502C3C /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3FCD02818F8C400502C3C /* SafariWebExtensionHandler.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,7 +39,7 @@
 			containerPortal = 0AB3FCA72818F8C200502C3C /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 0AB3FCCA2818F8C400502C3C;
-			remoteInfo = "MWC Wallet Extension";
+			remoteInfo = "MWC Wallet Browser Extension";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,7 +50,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				0AB3FCCC2818F8C400502C3C /* MWC Wallet Extension.appex in Embed App Extensions */,
+				0AB3FCCC2818F8C400502C3C /* MWC Wallet Browser Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,7 +72,7 @@
 		0A83DF3D283CE4A600811721 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		0A83DF3E283CE4A600811721 /* favicon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = favicon.ico; sourceTree = "<group>"; };
 		0A83DF3F283CE4A600811721 /* shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = shaders; sourceTree = "<group>"; };
-		0AB3FCAF2818F8C200502C3C /* MWC Wallet Extension Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MWC Wallet Extension Installer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AB3FCAF2818F8C200502C3C /* MWC Wallet Browser Extension Installer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MWC Wallet Browser Extension Installer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AB3FCB22818F8C200502C3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AB3FCB62818F8C200502C3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
 		0AB3FCB82818F8C200502C3C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -81,11 +81,11 @@
 		0AB3FCBE2818F8C200502C3C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0AB3FCC12818F8C200502C3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0AB3FCC32818F8C300502C3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0AB3FCC52818F8C300502C3C /* MWC_Wallet_Extension_Installer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MWC_Wallet_Extension_Installer.entitlements; sourceTree = "<group>"; };
-		0AB3FCCB2818F8C400502C3C /* MWC Wallet Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MWC Wallet Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0AB3FCC52818F8C300502C3C /* MWC_Wallet_Browser_Extension_Installer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MWC_Wallet_Browser_Extension_Installer.entitlements; sourceTree = "<group>"; };
+		0AB3FCCB2818F8C400502C3C /* MWC Wallet Browser Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MWC Wallet Browser Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AB3FCD02818F8C400502C3C /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
 		0AB3FCE32818F8C400502C3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0AB3FCE42818F8C400502C3C /* MWC_Wallet_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MWC_Wallet_Extension.entitlements; sourceTree = "<group>"; };
+		0AB3FCE42818F8C400502C3C /* MWC_Wallet_Browser_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MWC_Wallet_Browser_Extension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +109,8 @@
 		0AB3FCA62818F8C200502C3C = {
 			isa = PBXGroup;
 			children = (
-				0AB3FCB12818F8C200502C3C /* MWC Wallet Extension Installer */,
-				0AB3FCCF2818F8C400502C3C /* MWC Wallet Extension */,
+				0AB3FCB12818F8C200502C3C /* MWC Wallet Browser Extension Installer */,
+				0AB3FCCF2818F8C400502C3C /* MWC Wallet Browser Extension */,
 				0AB3FCB02818F8C200502C3C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,23 +118,23 @@
 		0AB3FCB02818F8C200502C3C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0AB3FCAF2818F8C200502C3C /* MWC Wallet Extension Installer.app */,
-				0AB3FCCB2818F8C400502C3C /* MWC Wallet Extension.appex */,
+				0AB3FCAF2818F8C200502C3C /* MWC Wallet Browser Extension Installer.app */,
+				0AB3FCCB2818F8C400502C3C /* MWC Wallet Browser Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0AB3FCB12818F8C200502C3C /* MWC Wallet Extension Installer */ = {
+		0AB3FCB12818F8C200502C3C /* MWC Wallet Browser Extension Installer */ = {
 			isa = PBXGroup;
 			children = (
 				0AB3FCB22818F8C200502C3C /* AppDelegate.swift */,
 				0AB3FCBE2818F8C200502C3C /* ViewController.swift */,
 				0AB3FCC02818F8C200502C3C /* Main.storyboard */,
 				0AB3FCC32818F8C300502C3C /* Assets.xcassets */,
-				0AB3FCC52818F8C300502C3C /* MWC_Wallet_Extension_Installer.entitlements */,
+				0AB3FCC52818F8C300502C3C /* MWC_Wallet_Browser_Extension_Installer.entitlements */,
 				0AB3FCB42818F8C200502C3C /* Resources */,
 			);
-			path = "MWC Wallet Extension Installer";
+			path = "MWC Wallet Browser Extension Installer";
 			sourceTree = "<group>";
 		};
 		0AB3FCB42818F8C200502C3C /* Resources */ = {
@@ -148,15 +148,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		0AB3FCCF2818F8C400502C3C /* MWC Wallet Extension */ = {
+		0AB3FCCF2818F8C400502C3C /* MWC Wallet Browser Extension */ = {
 			isa = PBXGroup;
 			children = (
 				0AB3FCD02818F8C400502C3C /* SafariWebExtensionHandler.swift */,
 				0AB3FCE32818F8C400502C3C /* Info.plist */,
-				0AB3FCE42818F8C400502C3C /* MWC_Wallet_Extension.entitlements */,
+				0AB3FCE42818F8C400502C3C /* MWC_Wallet_Browser_Extension.entitlements */,
 				0AB3FCD22818F8C400502C3C /* Resources */,
 			);
-			path = "MWC Wallet Extension";
+			path = "MWC Wallet Browser Extension";
 			sourceTree = "<group>";
 		};
 		0AB3FCD22818F8C400502C3C /* Resources */ = {
@@ -183,9 +183,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0AB3FCAE2818F8C200502C3C /* MWC Wallet Extension Installer */ = {
+		0AB3FCAE2818F8C200502C3C /* MWC Wallet Browser Extension Installer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0AB3FCEB2818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Extension Installer" */;
+			buildConfigurationList = 0AB3FCEB2818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Browser Extension Installer" */;
 			buildPhases = (
 				0AB3FCAB2818F8C200502C3C /* Sources */,
 				0AB3FCAC2818F8C200502C3C /* Frameworks */,
@@ -197,14 +197,14 @@
 			dependencies = (
 				0AB3FCCE2818F8C400502C3C /* PBXTargetDependency */,
 			);
-			name = "MWC Wallet Extension Installer";
+			name = "MWC Wallet Browser Extension Installer";
 			productName = "MWC Wallet";
-			productReference = 0AB3FCAF2818F8C200502C3C /* MWC Wallet Extension Installer.app */;
+			productReference = 0AB3FCAF2818F8C200502C3C /* MWC Wallet Browser Extension Installer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0AB3FCCA2818F8C400502C3C /* MWC Wallet Extension */ = {
+		0AB3FCCA2818F8C400502C3C /* MWC Wallet Browser Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0AB3FCE72818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Extension" */;
+			buildConfigurationList = 0AB3FCE72818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Browser Extension" */;
 			buildPhases = (
 				0AB3FCC72818F8C400502C3C /* Sources */,
 				0AB3FCC82818F8C400502C3C /* Frameworks */,
@@ -214,9 +214,9 @@
 			);
 			dependencies = (
 			);
-			name = "MWC Wallet Extension";
-			productName = "MWC Wallet Extension";
-			productReference = 0AB3FCCB2818F8C400502C3C /* MWC Wallet Extension.appex */;
+			name = "MWC Wallet Browser Extension";
+			productName = "MWC Wallet Browser Extension";
+			productReference = 0AB3FCCB2818F8C400502C3C /* MWC Wallet Browser Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -237,7 +237,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0AB3FCAA2818F8C200502C3C /* Build configuration list for PBXProject "MWC Wallet Extension" */;
+			buildConfigurationList = 0AB3FCAA2818F8C200502C3C /* Build configuration list for PBXProject "MWC Wallet Browser Extension" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -250,8 +250,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0AB3FCAE2818F8C200502C3C /* MWC Wallet Extension Installer */,
-				0AB3FCCA2818F8C400502C3C /* MWC Wallet Extension */,
+				0AB3FCAE2818F8C200502C3C /* MWC Wallet Browser Extension Installer */,
+				0AB3FCCA2818F8C400502C3C /* MWC Wallet Browser Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -316,7 +316,7 @@
 /* Begin PBXTargetDependency section */
 		0AB3FCCE2818F8C400502C3C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0AB3FCCA2818F8C400502C3C /* MWC Wallet Extension */;
+			target = 0AB3FCCA2818F8C400502C3C /* MWC Wallet Browser Extension */;
 			targetProxy = 0AB3FCCD2818F8C400502C3C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -459,13 +459,13 @@
 		0AB3FCE82818F8C400502C3C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Extension/MWC_Wallet_Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Browser Extension/MWC_Wallet_Browser_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MWC Wallet Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "MWC Wallet Extension";
+				INFOPLIST_FILE = "MWC Wallet Browser Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "MWC Wallet Browser Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -478,7 +478,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Extension.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Browser-Extension.Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -489,13 +489,13 @@
 		0AB3FCE92818F8C400502C3C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Extension/MWC_Wallet_Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Browser Extension/MWC_Wallet_Browser_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "MWC Wallet Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "MWC Wallet Extension";
+				INFOPLIST_FILE = "MWC Wallet Browser Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "MWC Wallet Browser Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -508,7 +508,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Extension.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Browser-Extension.Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -523,7 +523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Extension Installer/MWC_Wallet_Extension_Installer.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Browser Extension Installer/MWC_Wallet_Browser_Extension_Installer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -546,7 +546,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Browser-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -560,7 +560,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
-				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Extension Installer/MWC_Wallet_Extension_Installer.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "MWC Wallet Browser Extension Installer/MWC_Wallet_Browser_Extension_Installer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -583,7 +583,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mwcwallet.MWC-Wallet-Browser-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -593,7 +593,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0AB3FCAA2818F8C200502C3C /* Build configuration list for PBXProject "MWC Wallet Extension" */ = {
+		0AB3FCAA2818F8C200502C3C /* Build configuration list for PBXProject "MWC Wallet Browser Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AB3FCE52818F8C400502C3C /* Debug */,
@@ -602,7 +602,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0AB3FCE72818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Extension" */ = {
+		0AB3FCE72818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Browser Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AB3FCE82818F8C400502C3C /* Debug */,
@@ -611,7 +611,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0AB3FCEB2818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Extension Installer" */ = {
+		0AB3FCEB2818F8C400502C3C /* Build configuration list for PBXNativeTarget "MWC Wallet Browser Extension Installer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0AB3FCEC2818F8C400502C3C /* Debug */,

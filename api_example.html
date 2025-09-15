@@ -13,10 +13,10 @@
 		// Start transaction
 		function startTransaction(recipientAddress, amount, message) {
 		
-			// Check if MWC Wallet extension is installed
+			// Check if MWC Wallet browser extension is installed
 			if(typeof MwcWallet !== "undefined") {
 			
-				// Start transaction with the MWC Wallet extension and catch errors
+				// Start transaction with the MWC Wallet browser extension and catch errors
 				MwcWallet.startTransaction(MwcWallet.MWC_WALLET_TYPE, MwcWallet.MAINNET_NETWORK_TYPE, recipientAddress, (amount !== undefined) ? amount : MwcWallet.NO_TRANSACTION_AMOUNT, (message !== undefined) ? message : MwcWallet.NO_TRANSACTION_MESSAGE).catch(function(error) {
 				
 					// Check error

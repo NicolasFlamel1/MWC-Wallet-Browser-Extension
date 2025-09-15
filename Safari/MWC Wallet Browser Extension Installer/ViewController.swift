@@ -2,7 +2,7 @@ import Cocoa
 import SafariServices
 import WebKit
 
-let extensionBundleIdentifier = "com.mwcwallet.MWC-Wallet-Extension.Extension"
+let extensionBundleIdentifier = "com.mwcwallet.MWC-Wallet-Browser-Extension.Extension"
 
 class ViewController: NSViewController, WKNavigationDelegate, WKScriptMessageHandler {
 
