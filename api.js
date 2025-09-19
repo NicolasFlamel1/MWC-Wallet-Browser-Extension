@@ -2,28 +2,28 @@
 "use strict";
 
 
-// Constants
+// Main function
 
 // Try
 try {
 
-	// MWC Wallet
+	// Create MWC Wallet
 	var MwcWallet = Object.freeze({
-
+	
 		// Public
-
+		
 			// Start transaction
 			"startTransaction": function(walletType, networkType, recipientAddress, amount = MwcWallet.NO_TRANSACTION_AMOUNT, message = MwcWallet.NO_TRANSACTION_MESSAGE) {
 			
 				// Set self
 				const self = this;
-			
+				
 				// Return promise
 				return new Promise(function(resolve, reject) {
 				
 					// Return testing if extension exists
 					return fetch(self.path).then(function() {
-				
+					
 						// Create index
 						const index = Math.random();
 						
@@ -58,7 +58,7 @@ try {
 										
 										// Otherwise
 										else {
-									
+										
 											// Reject internal error error
 											reject(self.INTERNAL_ERROR_ERROR);
 										}
@@ -81,7 +81,7 @@ try {
 							
 							// Network type
 							"Network Type": networkType,
-						
+							
 							// Request
 							"Request": "Start Transaction",
 							
@@ -159,10 +159,10 @@ try {
 		// Private
 		
 			// Extension ID
-			"extensionId": (new URL(document["currentScript"]["src"]))["hostname"],
+			"extensionId": (new URL(document["currentScript"]["dataset"]["src"]))["hostname"],
 			
 			// Path
-			"path": document["currentScript"]["src"]
+			"path": document["currentScript"]["dataset"]["src"]
 	});
 }
 

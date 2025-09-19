@@ -7,7 +7,7 @@ cp -r "./mwcwallet.com-master/public_html/." "./temp/"
 chmod 777 -R "./temp/"
 cp "./service_worker.js" "./temp/"
 cp "./content_script.js" "./temp/"
-cp "../common/api.js" "./temp/"
+cp "./api.js" "./temp/"
 
 # Create locales
 mkdir "./temp/_locales"
@@ -16,7 +16,7 @@ for FILE in ./temp/languages/*.php; do
 	EXTENSION_LOCALE_CODE=$(grep -Po '(?<="Extension Locale Code" => ")[^"]+(?=")' $FILE | sed -e 's/-/_/g')
 	if [[ -n $EXTENSION_LOCALE_CODE ]]; then
 		mkdir "./temp/_locales/$EXTENSION_LOCALE_CODE"
-		HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "../common/messages.json" > "./temp/_locales/$EXTENSION_LOCALE_CODE/messages.json"
+		HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "./messages.json" > "./temp/_locales/$EXTENSION_LOCALE_CODE/messages.json"
 	fi
 done
 for FILE in ./temp/languages/*.php; do
@@ -24,7 +24,7 @@ for FILE in ./temp/languages/*.php; do
 	LANGUAGE_IDENTIFIER=$(grep -Po '(?<=\$availableLanguages\[")[^"]+(?="\])' $FILE | sed -e 's/-/_/g')
 	rm -rf "./temp/_locales/$LANGUAGE_IDENTIFIER"
 	mkdir "./temp/_locales/$LANGUAGE_IDENTIFIER"
-	HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "../common/messages.json" > "./temp/_locales/$LANGUAGE_IDENTIFIER/messages.json"
+	HTTP_ACCEPT_LANGUAGE="$LANGUAGE" php "./messages.json" > "./temp/_locales/$LANGUAGE_IDENTIFIER/messages.json"
 done
 
 # Get version
@@ -54,6 +54,7 @@ sed -i "/<meta name=\"msapplication-config\".*>/d" "./temp/index.html"
 sed -i "/<meta name=\"msapplication-starturl\".*>/d" "./temp/index.html"
 sed -i "/<link rel=\"alternate\".*>/d" "./temp/index.html"
 sed -i "/<link rel=\"canonical\".*>/d" "./temp/index.html"
+sed -i "s/<\/head>/<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; connect-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'; img-src 'self' data:\"><\/head>/" "./temp/index.html"
 
 # Move scripts from index.html to index.js
 sed -i "s/ onerror=\"[^\"]*\"//" "./temp/index.html"
@@ -83,8 +84,15 @@ SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" 
 # Copy third-party library instructions for reviewer
 cp "./mwcwallet.com-master/third-party libraries instructions.txt" "./temp/README.txt"
 
-# Pack extension
-cd "./temp" && zip -r -9 -FS "../../MWC Wallet Chrome Extension v$VERSION.zip" . && cd ".."
+# Pack extension for non-Safari
+cd "./temp" && zip -r -9 -FS "../MWC Wallet Non-Safari Extension v$VERSION.zip" . && cd ".."
+echo "Created 'MWC Wallet Non-Safari Extension v$VERSION.zip' for non-Safari web browsers"
+
+# Prepare extension for Safari
+rm -rf "./MWC Wallet Browser Extension/Resources"
+mv "./temp" "./MWC Wallet Browser Extension/Resources"
+sed -i "s/MARKETING_VERSION = .*/MARKETING_VERSION = $VERSION;/" "./MWC Wallet Browser Extension.xcodeproj/project.pbxproj"
+echo "Use Xcode to compile 'MWC Wallet Browser Extension.xcodeproj' into an app named 'MWC Wallet Safari Extension Installer v$VERSION.app' for Safari"
 
 # Cleanup
-rm -rf "./temp" "./master.zip" "./mwcwallet.com-master" "./messages.json"
+rm -rf "./master.zip" "./mwcwallet.com-master"

@@ -131,29 +131,29 @@ const VALUE_NUMBER_BASES = {
 };
 
 
-// Events
+// Main function
 
-// Startup event
-browser["runtime"]["onStartup"].addListener(function() {
+// Runtime startup event
+((typeof chrome !== "undefined") ? chrome : browser)["runtime"]["onStartup"].addListener(function() {
 
 	// Clear window ID
-	browser["storage"]["local"].remove("Window ID");
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].remove("Window ID");
 	
 	// Add context menu items
 	addContextMenuItems();
 });
 
-// Installed event
-browser["runtime"]["onInstalled"].addListener(function() {
+// Runtime installed event
+((typeof chrome !== "undefined") ? chrome : browser)["runtime"]["onInstalled"].addListener(function() {
 
 	// Clear window ID
-	browser["storage"]["local"].remove("Window ID");
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].remove("Window ID");
 	
 	// Add context menu items
 	addContextMenuItems();
 	
 	// Get all windows
-	browser["windows"].getAll({
+	((typeof chrome !== "undefined") ? chrome : browser)["windows"].getAll({
 	
 		// Populate
 		"populate": true
@@ -173,16 +173,24 @@ browser["runtime"]["onInstalled"].addListener(function() {
 				const tab = window["tabs"][j];
 				
 				// Execute script
-				browser["tabs"].executeScript({
+				((typeof chrome !== "undefined") ? chrome : browser)["scripting"].executeScript({
 				
-					// Tab ID
-					"tabId": tab["id"],
+					// Target
+					"target": {
 					
-					// All frames
-					"allFrames": true,
+						// Tab ID
+						"tabId": tab["id"],
 						
-					// File
-					"file": "./content_script.js"
+						// All frames
+						"allFrames": true
+					},
+					
+					// Files
+					"files": [
+					
+						// Content script
+						"./content_script.js"
+					]
 				
 				// Catch errors
 				}).catch(function(error) {
@@ -197,17 +205,121 @@ browser["runtime"]["onInstalled"].addListener(function() {
 	});
 });
 
-// Removed event
-browser["windows"]["onRemoved"].addListener(function() {
+// Management enabled event
+((typeof chrome !== "undefined") ? chrome : browser)["management"]["onEnabled"].addListener(function() {
+
+	// Clear window ID
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].remove("Window ID");
+	
+	// Add context menu items
+	addContextMenuItems();
+	
+	// Get all windows
+	((typeof chrome !== "undefined") ? chrome : browser)["windows"].getAll({
+	
+		// Populate
+		"populate": true
+		
+	}).then(function(windows) {
+	
+		// Go through all windows
+		for(let i = 0; i < windows["length"]; ++i) {
+		
+			// Get window
+			const window = windows[i];
+			
+			// Go through all window's tabs
+			for(let j = 0; j < window["tabs"]["length"]; ++j) {
+			
+				// Get tab
+				const tab = window["tabs"][j];
+				
+				// Execute script
+				((typeof chrome !== "undefined") ? chrome : browser)["scripting"].executeScript({
+				
+					// Target
+					"target": {
+					
+						// Tab ID
+						"tabId": tab["id"],
+						
+						// All frames
+						"allFrames": true
+					},
+					
+					// Files
+					"files": [
+					
+						// Content script
+						"./content_script.js"
+					]
+				
+				// Catch errors
+				}).catch(function(error) {
+				
+				});
+			}
+		}
+		
+	// Catch errors
+	}).catch(function(error) {
+	
+	});
+});
+
+// Management disabled event
+((typeof chrome !== "undefined") ? chrome : browser)["management"]["onDisabled"].addListener(function() {
 
 	// Get window ID
-	browser["storage"]["local"].get("Window ID").then(function(windowId) {
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
+	
+		// Check if window ID exists
+		if("Window ID" in windowId === true) {
+		
+			// Close window and catch errors
+			((typeof chrome !== "undefined") ? chrome : browser)["windows"].remove(windowId["Window ID"]).catch(function(error) {
+			
+			});
+		}
+		
+	// Catch errors
+	}).catch(function(error) {
+	
+	});
+});
+
+// Management uninstalled event
+((typeof chrome !== "undefined") ? chrome : browser)["management"]["onUninstalled"].addListener(function() {
+
+	// Get window ID
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
+	
+		// Check if window ID exists
+		if("Window ID" in windowId === true) {
+		
+			// Close window and catch errors
+			((typeof chrome !== "undefined") ? chrome : browser)["windows"].remove(windowId["Window ID"]).catch(function(error) {
+			
+			});
+		}
+		
+	// Catch errors
+	}).catch(function(error) {
+	
+	});
+});
+
+// Windows removed event
+((typeof chrome !== "undefined") ? chrome : browser)["windows"]["onRemoved"].addListener(function() {
+
+	// Get window ID
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
 	
 		// Check if window ID exists
 		if("Window ID" in windowId === true) {
 		
 			// Get windows
-			browser["windows"].getAll({
+			((typeof chrome !== "undefined") ? chrome : browser)["windows"].getAll({
 			
 				// Window types
 				"windowTypes": [
@@ -220,9 +332,9 @@ browser["windows"]["onRemoved"].addListener(function() {
 			
 				// Check if no more windows are open
 				if(windows["length"] === 0) {
-			
+				
 					// Close window and catch errors
-					browser["windows"].remove(windowId["Window ID"]).catch(function(error) {
+					((typeof chrome !== "undefined") ? chrome : browser)["windows"].remove(windowId["Window ID"]).catch(function(error) {
 					
 					});
 				}
@@ -239,23 +351,23 @@ browser["windows"]["onRemoved"].addListener(function() {
 	});
 });
 
-// Clicked event
-browser["browserAction"]["onClicked"].addListener(function() {
+// Action clicked event
+((typeof chrome !== "undefined") ? chrome : browser)["action"]["onClicked"].addListener(function() {
 
 	// Get window ID
-	browser["storage"]["local"].get("Window ID").then(function(windowId) {
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
 	
 		// Check if window ID exists
 		if("Window ID" in windowId === true) {
 		
 			// Get window
-			browser["windows"].get(windowId["Window ID"]).then(function(window) {
+			((typeof chrome !== "undefined") ? chrome : browser)["windows"].get(windowId["Window ID"]).then(function(window) {
 			
 				// Check if window exists
 				if(window !== NO_WINDOW) {
-			
+				
 					// Update window
-					browser["windows"].update(windowId["Window ID"], {
+					((typeof chrome !== "undefined") ? chrome : browser)["windows"].update(windowId["Window ID"], {
 					
 						// Focused
 						"focused": true
@@ -270,10 +382,10 @@ browser["browserAction"]["onClicked"].addListener(function() {
 				else {
 				
 					// Create window
-					browser["windows"].create({
+					((typeof chrome !== "undefined") ? chrome : browser)["windows"].create({
 					
 						// URL
-						"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+"),
+						"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+"),
 						
 						// Type
 						"type": "popup",
@@ -290,7 +402,7 @@ browser["browserAction"]["onClicked"].addListener(function() {
 					}).then(function(window) {
 					
 						// Save window ID
-						browser["storage"]["local"].set({
+						((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].set({
 						
 							// Window ID
 							"Window ID": window["id"]
@@ -310,10 +422,10 @@ browser["browserAction"]["onClicked"].addListener(function() {
 			}).catch(function(error) {
 			
 				// Create window
-				browser["windows"].create({
+				((typeof chrome !== "undefined") ? chrome : browser)["windows"].create({
 				
 					// URL
-					"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+"),
+					"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+"),
 					
 					// Type
 					"type": "popup",
@@ -330,7 +442,7 @@ browser["browserAction"]["onClicked"].addListener(function() {
 				}).then(function(window) {
 				
 					// Save window ID
-					browser["storage"]["local"].set({
+					((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].set({
 					
 						// Window ID
 						"Window ID": window["id"]
@@ -349,12 +461,12 @@ browser["browserAction"]["onClicked"].addListener(function() {
 		
 		// Otherwise
 		else {
-
+		
 			// Create window
-			browser["windows"].create({
+			((typeof chrome !== "undefined") ? chrome : browser)["windows"].create({
 			
 				// URL
-				"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+"),
+				"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+"),
 				
 				// Type
 				"type": "popup",
@@ -371,7 +483,7 @@ browser["browserAction"]["onClicked"].addListener(function() {
 			}).then(function(window) {
 			
 				// Save window ID
-				browser["storage"]["local"].set({
+				((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].set({
 				
 					// Window ID
 					"Window ID": window["id"]
@@ -393,11 +505,11 @@ browser["browserAction"]["onClicked"].addListener(function() {
 	});
 });
 
-// Message event
-browser["runtime"]["onMessage"].addListener(function(request, sender, sendResponse) {
+// Runtime message event
+((typeof chrome !== "undefined") ? chrome : browser)["runtime"]["onMessage"].addListener(function(request, sender, sendResponse) {
 
 	// Check if sender is the content script
-	if(sender["id"] === browser["runtime"]["id"] && typeof request === "object" && request !== null && "Wallet Type" in request === true && "Network Type" in request === true && "Request" in request === true && "Index" in request === true) {
+	if(sender["id"] === ((typeof chrome !== "undefined") ? chrome : browser)["runtime"]["id"] && typeof request === "object" && request !== null && "Wallet Type" in request === true && "Network Type" in request === true && "Request" in request === true && "Index" in request === true) {
 	
 		// Check if wallet type is invalid
 		if(WALLET_TYPES.indexOf(request["Wallet Type"]) === INDEX_NOT_FOUND) {
@@ -495,7 +607,7 @@ browser["runtime"]["onMessage"].addListener(function(request, sender, sendRespon
 					
 					// Otherwise
 					else {
-			
+					
 						// Start transaction
 						startTransaction(request["Wallet Type"], request["Network Type"], request["Recipient Address"], request["Amount"], request["Message"]).then(function() {
 						
@@ -548,7 +660,7 @@ browser["runtime"]["onMessage"].addListener(function(request, sender, sendRespon
 						// Index
 						"Index": request["Index"]
 					});
-				
+					
 					// Break
 					break;
 			}
@@ -556,20 +668,20 @@ browser["runtime"]["onMessage"].addListener(function(request, sender, sendRespon
 	}
 });
 
-// Context menu click event
-browser["contextMenus"]["onClicked"].addListener(function(info) {
+// Context menus clicked event
+((typeof chrome !== "undefined") ? chrome : browser)["contextMenus"]["onClicked"].addListener(function(info) {
 
 	// Check menu item ID
 	switch(info["menuItemId"]) {
 	
 		// Open in new tab ID
 		case OPEN_IN_NEW_TAB_ID:
-
+		
 			// Create tab
-			browser["tabs"].create({
+			((typeof chrome !== "undefined") ? chrome : browser)["tabs"].create({
 			
 				// URL
-				"url": browser["runtime"].getURL("./index.html")
+				"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html")
 			
 			// Catch errors
 			}).catch(function(error) {
@@ -583,10 +695,10 @@ browser["contextMenus"]["onClicked"].addListener(function(info) {
 		case OPEN_IN_NEW_WINDOW_ID:
 		
 			// Create window
-			browser["windows"].create({
+			((typeof chrome !== "undefined") ? chrome : browser)["windows"].create({
 			
 				// URL
-				"url": browser["runtime"].getURL("./index.html")
+				"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html")
 			
 			// Catch errors
 			}).catch(function(error) {
@@ -605,40 +717,40 @@ browser["contextMenus"]["onClicked"].addListener(function(info) {
 function addContextMenuItems() {
 
 	// Remove all context menu items
-	browser["contextMenus"].removeAll();
-
+	((typeof chrome !== "undefined") ? chrome : browser)["contextMenus"].removeAll();
+	
 	// Create open in new tab context menu item
-	browser["contextMenus"].create({
+	((typeof chrome !== "undefined") ? chrome : browser)["contextMenus"].create({
 	
 		// ID
 		"id": OPEN_IN_NEW_TAB_ID,
-	
+		
 		// Contexts
 		"contexts": [
 		
-			// Browser action
-			"browser_action"
+			// Action
+			"action"
 		],
 		
 		// Title
-		"title": sanitizeContextMenuTitle(browser["i18n"].getMessage("openInNewTab"))
+		"title": sanitizeContextMenuTitle(((typeof chrome !== "undefined") ? chrome : browser)["i18n"].getMessage("openInNewTab"))
 	});
 	
 	// Create open in new window context menu item
-	browser["contextMenus"].create({
+	((typeof chrome !== "undefined") ? chrome : browser)["contextMenus"].create({
 	
 		// ID
 		"id": OPEN_IN_NEW_WINDOW_ID,
-	
+		
 		// Contexts
 		"contexts": [
 		
-			// Browser action
-			"browser_action"
+			// Action
+			"action"
 		],
 		
 		// Title
-		"title": sanitizeContextMenuTitle(browser["i18n"].getMessage("openInNewWindow"))
+		"title": sanitizeContextMenuTitle(((typeof chrome !== "undefined") ? chrome : browser)["i18n"].getMessage("openInNewWindow"))
 	});
 }
 
@@ -651,7 +763,7 @@ function isNumberString(string) {
 		// Return false
 		return false;
 	}
-
+	
 	// Return if string is a number string
 	return NUMBER_STRING_PATTERN.test(string) === true;
 }
@@ -682,7 +794,7 @@ function getNumberStringPrecision(string) {
 
 	// Remove trailing zeros from string
 	string = removeTrailingZeros(string);
-
+	
 	// Check if string doesn't contains a fractional component
 	const fractionIndex = string.indexOf(".");
 	
@@ -705,27 +817,27 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 
 	// Return promise
 	return new Promise(function(resolve, reject) {
-
+	
 		// Return getting window ID
-		return browser["storage"]["local"].get("Window ID").then(function(windowId) {
+		return ((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
 		
 			// Check if window ID exists
 			if("Window ID" in windowId === true) {
 			
 				// Return getting window
-				return browser["windows"].get(windowId["Window ID"]).then(function(window) {
+				return ((typeof chrome !== "undefined") ? chrome : browser)["windows"].get(windowId["Window ID"]).then(function(window) {
 				
 					// Check if window exists
 					if(window !== NO_WINDOW) {
-				
+					
 						// Return updating window
-						return browser["windows"].update(windowId["Window ID"], {
+						return ((typeof chrome !== "undefined") ? chrome : browser)["windows"].update(windowId["Window ID"], {
 						
 							// Focused
 							"focused": true
 						
 						}).then(function() {
-					
+						
 							// Resolve
 							resolve();
 						
@@ -741,10 +853,10 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 					else {
 					
 						// Return creating window
-						return browser["windows"].create({
+						return ((typeof chrome !== "undefined") ? chrome : browser)["windows"].create({
 						
 							// URL
-							"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
+							"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
 							
 							// Type
 							"type": "popup",
@@ -761,7 +873,7 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 						}).then(function(window) {
 						
 							// Return saving window ID
-							return browser["storage"]["local"].set({
+							return ((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].set({
 							
 								// Window ID
 								"Window ID": window["id"]
@@ -790,10 +902,10 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 				}).catch(function(error) {
 				
 					// Return creating window
-					return browser["windows"].create({
+					return ((typeof chrome !== "undefined") ? chrome : browser)["windows"].create({
 					
 						// URL
-						"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
+						"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
 						
 						// Type
 						"type": "popup",
@@ -810,7 +922,7 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 					}).then(function(window) {
 					
 						// Return saving window ID
-						return browser["storage"]["local"].set({
+						return ((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].set({
 						
 							// Window ID
 							"Window ID": window["id"]
@@ -838,12 +950,12 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 			
 			// Otherwise
 			else {
-
+			
 				// Return creating window
-				return browser["windows"].create({
+				return ((typeof chrome !== "undefined") ? chrome : browser)["windows"].create({
 				
 					// URL
-					"url": browser["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
+					"url": ((typeof chrome !== "undefined") ? chrome : browser)["runtime"].getURL("./index.html") + URL_QUERY_STRING_SEPARATOR + encodeURIComponent("Is Popup").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("True").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Wallet Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(walletType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Override Network Type").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(networkType).replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Request").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent("Start Transaction").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Recipient Address").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(recipientAddress).replace(/%20/ug, "+") + ((amount !== NO_TRANSACTION_AMOUNT) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Amount").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(amount).replace(/%20/ug, "+") : "") + ((message !== NO_TRANSACTION_MESSAGE) ? URL_QUERY_STRING_PARAMETER_SEPARATOR + encodeURIComponent("Message").replace(/%20/ug, "+") + URL_QUERY_STRING_PARAMETER_VALUE_SEPARATOR + encodeURIComponent(message).replace(/%20/ug, "+") : ""),
 					
 					// Type
 					"type": "popup",
@@ -860,7 +972,7 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 				}).then(function(window) {
 				
 					// Return saving window ID
-					return browser["storage"]["local"].set({
+					return ((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].set({
 					
 						// Window ID
 						"Window ID": window["id"]
@@ -897,6 +1009,6 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 // Sanitize context menu title
 function sanitizeContextMenuTitle(title) {
 
-	// Return escaped title
-	return title.replace(/\$/gu, "$$$");
+	// Return escaped title if non-Chrome otherwise return escaped title with all but the first letter changed to lower case
+	return (typeof browser !== "undefined") ? title.replace(/\$/gu, "$$$") : ([...title][0] + [...title].slice(1).join("").toLocaleLowerCase(chrome["i18n"].getUILanguage())).replace(/\$/gu, "$$$");
 }

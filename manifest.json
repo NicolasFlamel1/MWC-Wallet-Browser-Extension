@@ -5,22 +5,16 @@
 	require_once __DIR__ . "/mwcwallet.com-master/public_html/backend/language.php";
 	require_once __DIR__ . "/mwcwallet.com-master/public_html/backend/resources.php";
 	
-	
-	// Constants
-	
-	// Manifest version
-	const MANIFEST_VERSION = 2;
-	
 ?>{
 	"name": "__MSG_name__",
 	"short_name": "__MSG_shortName__",
 	"description": "__MSG_description__",
 	"version": "<?= escapeString(VERSION_NUMBER) ?>",
-	"manifest_version": <?= MANIFEST_VERSION ?>,
+	"manifest_version": 3,
 	"default_locale": "<?= escapeString(preg_replace('/-/u', "_", DEFAULT_LANGUAGE)); ?>",
-	"browser_action": {
+	"action": {
 		"default_icon": {<?php
-
+		
 			// Go through all app icons
 			$firstMatch = TRUE;
 			foreach(APP_ICONS as $appIcon) {
@@ -44,7 +38,7 @@
 		"default_title": "__MSG_defaultTitle__"
 	},
 	"icons": {<?php
-
+	
 		// Go through all app icons
 		$firstMatch = TRUE;
 		foreach(APP_ICONS as $appIcon) {
@@ -54,7 +48,7 @@
 			
 				// Check if app icon is a favicon
 				if($appIcon[APP_ICON_PARTS["Use As Favicon"]] === TRUE) {
-		
+				
 					// Display app icon
 					echo (($firstMatch === TRUE) ? "" : ",") . PHP_EOL;
 					echo "\t\t\"" . escapeString($appIcon[APP_ICON_PARTS["X Dimension"]]) . "\": \"" . escapeString(getResource($appIcon[APP_ICON_PARTS["File Path"]])) . "\"";
@@ -65,18 +59,25 @@
 	?>
 	
 	},
-	"content_security_policy": "style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-eval'; img-src 'self' data:",
+	"content_security_policy": {
+		"extension_pages": "script-src 'self' 'wasm-unsafe-eval'"
+	},
 	"permissions": [
 		"unlimitedStorage",
 		"storage",
+		"scripting",
 		"contextMenus",
-		"*://*/*"
+		"management"
 	],
 	"background": {
-		"scripts": [
-			"./service_worker.js"
-		],
-		"persistent": false
+		"service_worker": "./service_worker.js",
+		"scripts": ["./service_worker.js"]
+	},
+	"cross_origin_opener_policy": {
+		"value": "same-origin"
+	},
+	"cross_origin_embedder_policy": {
+		"value": "require-corp"
 	},
 	"content_scripts": [
 		{
@@ -90,6 +91,16 @@
 		}
 	],
 	"web_accessible_resources": [
-		"api.js"
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"resources": [
+				"api.js"
+			]
+		}
+	],
+	"host_permissions": [
+		"<all_urls>"
 	]
 }
