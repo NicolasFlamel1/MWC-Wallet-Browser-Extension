@@ -28,12 +28,12 @@ try {
 			event.stopImmediatePropagation();
 			
 			// Remove API
-			api.remove();
+			this.remove();
 			
 		}, true);
 		
 		// Add API to site
-		document["head"].appendChild(api);
+		document["documentElement"].appendChild(api);
 		
 		// Message event
 		window.addEventListener("message", getResponse);

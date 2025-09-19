@@ -156,60 +156,64 @@ const VALUE_NUMBER_BASES = {
 	injectContentScript();
 });
 
-// Management enabled event
-((typeof chrome !== "undefined") ? chrome : browser)["management"]["onEnabled"].addListener(function() {
+// Check if management exists
+if(typeof ((typeof chrome !== "undefined") ? chrome : browser).management !== "undefined") {
 
-	// Clear window ID
-	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].remove("Window ID");
+	// Management enabled event
+	((typeof chrome !== "undefined") ? chrome : browser)["management"]["onEnabled"].addListener(function() {
 	
-	// Add context menu items
-	addContextMenuItems();
-	
-	// Inject content script
-	injectContentScript();
-});
-
-// Management disabled event
-((typeof chrome !== "undefined") ? chrome : browser)["management"]["onDisabled"].addListener(function() {
-
-	// Get window ID
-	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
-	
-		// Check if window ID exists
-		if("Window ID" in windowId === true) {
+		// Clear window ID
+		((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].remove("Window ID");
 		
-			// Close window and catch errors
-			((typeof chrome !== "undefined") ? chrome : browser)["windows"].remove(windowId["Window ID"]).catch(function(error) {
-			
-			});
-		}
+		// Add context menu items
+		addContextMenuItems();
 		
-	// Catch errors
-	}).catch(function(error) {
-	
+		// Inject content script
+		injectContentScript();
 	});
-});
-
-// Management uninstalled event
-((typeof chrome !== "undefined") ? chrome : browser)["management"]["onUninstalled"].addListener(function() {
-
-	// Get window ID
-	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
 	
-		// Check if window ID exists
-		if("Window ID" in windowId === true) {
+	// Management disabled event
+	((typeof chrome !== "undefined") ? chrome : browser)["management"]["onDisabled"].addListener(function() {
+	
+		// Get window ID
+		((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
 		
-			// Close window and catch errors
-			((typeof chrome !== "undefined") ? chrome : browser)["windows"].remove(windowId["Window ID"]).catch(function(error) {
+			// Check if window ID exists
+			if("Window ID" in windowId === true) {
 			
-			});
-		}
+				// Close window and catch errors
+				((typeof chrome !== "undefined") ? chrome : browser)["windows"].remove(windowId["Window ID"]).catch(function(error) {
+				
+				});
+			}
+			
+		// Catch errors
+		}).catch(function(error) {
 		
-	// Catch errors
-	}).catch(function(error) {
-	
+		});
 	});
-});
+	
+	// Management uninstalled event
+	((typeof chrome !== "undefined") ? chrome : browser)["management"]["onUninstalled"].addListener(function() {
+	
+		// Get window ID
+		((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Window ID").then(function(windowId) {
+		
+			// Check if window ID exists
+			if("Window ID" in windowId === true) {
+			
+				// Close window and catch errors
+				((typeof chrome !== "undefined") ? chrome : browser)["windows"].remove(windowId["Window ID"]).catch(function(error) {
+				
+				});
+			}
+			
+		// Catch errors
+		}).catch(function(error) {
+		
+		});
+	});
+}
 
 // Windows removed event
 ((typeof chrome !== "undefined") ? chrome : browser)["windows"]["onRemoved"].addListener(function() {
