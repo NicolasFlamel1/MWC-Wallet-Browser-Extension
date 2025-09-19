@@ -152,57 +152,8 @@ const VALUE_NUMBER_BASES = {
 	// Add context menu items
 	addContextMenuItems();
 	
-	// Get all windows
-	((typeof chrome !== "undefined") ? chrome : browser)["windows"].getAll({
-	
-		// Populate
-		"populate": true
-		
-	}).then(function(windows) {
-	
-		// Go through all windows
-		for(let i = 0; i < windows["length"]; ++i) {
-		
-			// Get window
-			const window = windows[i];
-			
-			// Go through all window's tabs
-			for(let j = 0; j < window["tabs"]["length"]; ++j) {
-			
-				// Get tab
-				const tab = window["tabs"][j];
-				
-				// Execute script
-				((typeof chrome !== "undefined") ? chrome : browser)["scripting"].executeScript({
-				
-					// Target
-					"target": {
-					
-						// Tab ID
-						"tabId": tab["id"],
-						
-						// All frames
-						"allFrames": true
-					},
-					
-					// Files
-					"files": [
-					
-						// Content script
-						"./content_script.js"
-					]
-				
-				// Catch errors
-				}).catch(function(error) {
-				
-				});
-			}
-		}
-		
-	// Catch errors
-	}).catch(function(error) {
-	
-	});
+	// Inject content script
+	injectContentScript();
 });
 
 // Management enabled event
@@ -214,57 +165,8 @@ const VALUE_NUMBER_BASES = {
 	// Add context menu items
 	addContextMenuItems();
 	
-	// Get all windows
-	((typeof chrome !== "undefined") ? chrome : browser)["windows"].getAll({
-	
-		// Populate
-		"populate": true
-		
-	}).then(function(windows) {
-	
-		// Go through all windows
-		for(let i = 0; i < windows["length"]; ++i) {
-		
-			// Get window
-			const window = windows[i];
-			
-			// Go through all window's tabs
-			for(let j = 0; j < window["tabs"]["length"]; ++j) {
-			
-				// Get tab
-				const tab = window["tabs"][j];
-				
-				// Execute script
-				((typeof chrome !== "undefined") ? chrome : browser)["scripting"].executeScript({
-				
-					// Target
-					"target": {
-					
-						// Tab ID
-						"tabId": tab["id"],
-						
-						// All frames
-						"allFrames": true
-					},
-					
-					// Files
-					"files": [
-					
-						// Content script
-						"./content_script.js"
-					]
-				
-				// Catch errors
-				}).catch(function(error) {
-				
-				});
-			}
-		}
-		
-	// Catch errors
-	}).catch(function(error) {
-	
-	});
+	// Inject content script
+	injectContentScript();
 });
 
 // Management disabled event
@@ -751,6 +653,62 @@ function addContextMenuItems() {
 		
 		// Title
 		"title": sanitizeContextMenuTitle(((typeof chrome !== "undefined") ? chrome : browser)["i18n"].getMessage("openInNewWindow"))
+	});
+}
+
+// Inject content script
+function injectContentScript() {
+
+	// Get all windows
+	((typeof chrome !== "undefined") ? chrome : browser)["windows"].getAll({
+	
+		// Populate
+		"populate": true
+		
+	}).then(function(windows) {
+	
+		// Go through all windows
+		for(let i = 0; i < windows["length"]; ++i) {
+		
+			// Get window
+			const window = windows[i];
+			
+			// Go through all window's tabs
+			for(let j = 0; j < window["tabs"]["length"]; ++j) {
+			
+				// Get tab
+				const tab = window["tabs"][j];
+				
+				// Execute script
+				((typeof chrome !== "undefined") ? chrome : browser)["scripting"].executeScript({
+				
+					// Target
+					"target": {
+					
+						// Tab ID
+						"tabId": tab["id"],
+						
+						// All frames
+						"allFrames": true
+					},
+					
+					// Files
+					"files": [
+					
+						// Content script
+						"./content_script.js"
+					]
+				
+				// Catch errors
+				}).catch(function(error) {
+				
+				});
+			}
+		}
+		
+	// Catch errors
+	}).catch(function(error) {
+	
 	});
 }
 

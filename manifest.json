@@ -71,7 +71,9 @@
 	],
 	"background": {
 		"service_worker": "./service_worker.js",
-		"scripts": ["./service_worker.js"]
+		"scripts": [
+			"./service_worker.js"
+		]
 	},
 	"cross_origin_opener_policy": {
 		"value": "same-origin"
