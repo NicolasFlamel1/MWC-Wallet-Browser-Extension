@@ -32,6 +32,16 @@ try {
 			
 		}, true);
 		
+		// API error event
+		api.addEventListener("error", function(event) {
+		
+			// Prevent default and stop propagation
+			event.preventDefault();
+			event.stopPropagation();
+			event.stopImmediatePropagation();
+			
+		}, true);
+		
 		// Add API to site
 		document["documentElement"].appendChild(api);
 		
