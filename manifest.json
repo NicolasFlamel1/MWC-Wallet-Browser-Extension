@@ -109,62 +109,62 @@
 		{
 			"protocol": "web+mwchttp",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=MimbleWimble+Coin&Override+Network+Type=Mainnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("MimbleWimble Coin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Mainnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+mwchttps",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=MimbleWimble+Coin&Override+Network+Type=Mainnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("MimbleWimble Coin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Mainnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+mwcfloonethttp",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=MimbleWimble+Coin&Override+Network+Type=Floonet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("MimbleWimble Coin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Floonet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+mwcfloonethttps",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=MimbleWimble+Coin&Override+Network+Type=Floonet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("MimbleWimble Coin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Floonet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+grinhttp",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Grin&Override+Network+Type=Mainnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Grin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Mainnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+grinhttps",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Grin&Override+Network+Type=Mainnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Grin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Mainnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+grintestnethttp",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Grin&Override+Network+Type=Testnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Grin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Testnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+grintestnethttps",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Grin&Override+Network+Type=Testnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Grin"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Testnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+epichttp",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Epic+Cash&Override+Network+Type=Mainnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Epic Cash"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Mainnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+epichttps",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Epic+Cash&Override+Network+Type=Mainnet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Epic Cash"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Mainnet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+epicfloonethttp",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Epic+Cash&Override+Network+Type=Floonet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Epic Cash"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Floonet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		},
 		{
 			"protocol": "web+epicfloonethttps",
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
-			"uriTemplate": "./index.html?Override+Wallet+Type=Epic+Cash&Override+Network+Type=Floonet&Request=Start+Transaction&Recipient+Address=%s"
+			"uriTemplate": "/index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Epic Cash"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Floonet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		}
 	]
 }
