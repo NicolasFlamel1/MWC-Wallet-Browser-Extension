@@ -51,7 +51,7 @@
 				
 					// Display app icon
 					echo (($firstMatch === TRUE) ? "" : ",") . PHP_EOL;
-					echo "\t\t\"" . escapeString($appIcon[APP_ICON_PARTS["X Dimension"]]) . "\": \"" . escapeString(getResource($appIcon[APP_ICON_PARTS["File Path"]])) . "\"";
+					echo "\t\t\"" . escapeString($appIcon[APP_ICON_PARTS["X Dimension"]]) . "\": \"" . escapeString(mb_substr(getResource($appIcon[APP_ICON_PARTS["File Path"]]), mb_strlen("./"))) . "\"";
 					$firstMatch = FALSE;
 				}
 			}
@@ -166,5 +166,10 @@
 			"name": "<?= escapeString(getTranslation('MWC Wallet')); ?>",
 			"uriTemplate": "./index.html?<?= urlencode("Override Wallet Type"); ?>=<?= urlencode("Epic Cash"); ?>&<?= urlencode("Override Network Type"); ?>=<?= urlencode("Floonet"); ?>&<?= urlencode("Request"); ?>=<?= urlencode("Start Transaction"); ?>&<?= urlencode("Recipient Address"); ?>=%s"
 		}
-	]
+	],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "{d783f67c-4dea-4d64-bfc2-1d4a6057babe}"
+		}
+	}
 }
