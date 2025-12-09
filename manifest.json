@@ -11,6 +11,7 @@
 	"description": "__MSG_description__",
 	"version": "<?= escapeString(VERSION_NUMBER) ?>",
 	"manifest_version": 3,
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkpY7s3jTUAdqONw61zNSjRgEJWRmOsYRS+5axVwHgt0HLQmHjVC+qJA9R8p6yq+EB1aUdzraITL8rhKwIbc2vdGcvfSO87kWOxk0Kc8zqhdDUJSmx4MRZ797jGrvXunv6t3Xw694dTAyFwLP7HPZCp2kliGP9MH5VSlo/Vcd8Q1/6KlOZgkO6JSaqdtNmceVIHqPSXwu6WoMh4LpV+uD+rNPZbf+/OD2UEvDCRotJny6/dZse0hEnsLSAlS+I2zuWPrCxgZTnlEAhTp8nrl3RXB4SCi/7Mxoy0lyjH8Y/MxA1BtDswQUs5/hx3bfmDKbF5TPaZGvXhRb8me3rwBVpQIDAQAB",
 	"default_locale": "<?= escapeString(preg_replace('/-/u', "_", DEFAULT_LANGUAGE)); ?>",
 	"action": {
 		"default_icon": {<?php
