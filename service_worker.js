@@ -156,6 +156,8 @@ const VALUE_NUMBER_BASES = {
 	injectContentScript();
 });
 
+/* Disabled features that require "management" permission in manifest.json since some extension stores flag that permission as deceptive and misleading
+
 // Check if management exists
 if(typeof ((typeof chrome !== "undefined") ? chrome : browser).management !== "undefined") {
 
@@ -213,7 +215,7 @@ if(typeof ((typeof chrome !== "undefined") ? chrome : browser).management !== "u
 		
 		});
 	});
-}
+}*/
 
 // Windows removed event
 ((typeof chrome !== "undefined") ? chrome : browser)["windows"]["onRemoved"].addListener(function() {

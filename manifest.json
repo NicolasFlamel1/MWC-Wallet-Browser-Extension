@@ -67,8 +67,7 @@
 		"unlimitedStorage",
 		"storage",
 		"scripting",
-		"contextMenus",
-		"management"
+		"contextMenus"
 	],
 	"background": {
 		"service_worker": "./service_worker.js",
