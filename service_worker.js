@@ -26,7 +26,7 @@ const ENDING_DECIMAL_POINT_PATTERN = /\.$/u;
 const POPUP_WINDOW_WIDTH = 400;
 
 // Popup window height
-const POPUP_WINDOW_HEIGHT = 640;
+const POPUP_WINDOW_HEIGHT = 700;
 
 // URL query string separator
 const URL_QUERY_STRING_SEPARATOR = "?";
