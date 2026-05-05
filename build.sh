@@ -55,6 +55,8 @@ sed -i "/<meta name=\"msapplication-starturl\".*>/d" "./temp/index.html"
 sed -i "/<link rel=\"alternate\".*>/d" "./temp/index.html"
 sed -i "/<link rel=\"canonical\".*>/d" "./temp/index.html"
 sed -i "s/<\/head>/<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; connect-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'wasm-unsafe-eval'; img-src 'self' data:\"><\/head>/" "./temp/index.html"
+sed -i "s/>.*<\/title>/><\/title>/" "./temp/index.html"
+sed -i "s/>Loading…<\/p>/><\/p>/" "./temp/index.html"
 
 # Move scripts from index.html to index.js
 sed -i "s/ onerror=\"[^\"]*\"//" "./temp/index.html"
