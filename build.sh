@@ -83,6 +83,12 @@ SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" 
 SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" NO_MINIFIED_FILES="" HTTPS_SERVER_ADDRESS="https://mwcwallet.com" TOR_SERVER_ADDRESS="http://mwcwalletmiq3gdkmfbqlytxunvlxyli4m6zrqozk7xjc353ewqb6bad.onion" php "./mwcwallet.com-master/public_html/scripts/slate_worker.js" > "./temp/scripts/slate_worker.js"
 SERVER_NAME="mwcwallet.com" HTTPS="on" NO_FILE_VERSIONS="" NO_FILE_CHECKSUMS="" NO_MINIFIED_FILES="" HTTPS_SERVER_ADDRESS="https://mwcwallet.com" TOR_SERVER_ADDRESS="http://mwcwalletmiq3gdkmfbqlytxunvlxyli4m6zrqozk7xjc353ewqb6bad.onion" php "./mwcwallet.com-master/public_html/scripts/languages.js" > "./temp/scripts/languages.js"
 
+# Change non-standard file extensions
+mv "./temp/shaders/logo.frag" "./temp/shaders/logo.frag.txt"
+find "./temp" -type f -exec sed -i "s/logo.frag/logo.frag.txt/g" {} +
+mv "./temp/shaders/logo.vert" "./temp/shaders/logo.vert.txt"
+find "./temp" -type f -exec sed -i "s/logo.vert/logo.vert.txt/g" {} +
+
 # Copy third-party library instructions for reviewer
 cp "./mwcwallet.com-master/third-party libraries instructions.txt" "./temp/README.txt"
 
