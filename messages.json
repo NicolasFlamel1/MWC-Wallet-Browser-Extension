@@ -8,9 +8,6 @@
 	"name": {
 		"message": "<?= escapeString(getTranslation('MWC Wallet')); ?>"
 	},
-	"shortName": {
-		"message": "<?= escapeString(getTranslation('MWC Wallet')); ?>"
-	},
 	"description": {
 		"message": "<?= escapeString(getTranslation('A MimbleWimble Coin wallet.')); ?>"
 	},

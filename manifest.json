@@ -7,7 +7,6 @@
 	
 ?>{
 	"name": "__MSG_name__",
-	"short_name": "__MSG_shortName__",
 	"description": "__MSG_description__",
 	"version": "<?= escapeString(VERSION_NUMBER) ?>",
 	"manifest_version": 3,
