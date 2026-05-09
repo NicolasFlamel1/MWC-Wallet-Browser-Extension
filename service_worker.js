@@ -23,10 +23,10 @@ const TRAILING_ZEROS_PATTERN = /(\.\d*?)0+$/u;
 const ENDING_DECIMAL_POINT_PATTERN = /\.$/u;
 
 // Popup window width
-const POPUP_WINDOW_WIDTH = 400;
+const POPUP_WINDOW_WIDTH = 420;
 
 // Popup window height
-const POPUP_WINDOW_HEIGHT = 700;
+const POPUP_WINDOW_HEIGHT = 720;
 
 // URL query string separator
 const URL_QUERY_STRING_SEPARATOR = "?";
