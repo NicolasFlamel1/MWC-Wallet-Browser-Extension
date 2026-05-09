@@ -8,9 +8,9 @@ This extension can be installed on **Chrome** from the [Chrome Web Store](https:
 
 This extension can be installed on **Firefox** from the [Firefox Add-ons site](https://addons.mozilla.org/en-US/firefox/addon/mwc-wallet).
 
-This extension can be installed on **Edge** from the [Edge Add-ons site](https://microsoftedge.microsoft.com/addons/detail/mwc-wallet/nhfjkjhonhcjengnbaplabipoajnlmjm).
+This extension can be installed on **Edge** from the [Chrome Web Store](https://chromewebstore.google.com/detail/mwc-wallet/ahhdnimkkpkmclgcnbchlgijhmieongp).
 
-This extension can be installed on **Opera** from the [Opera Addons Store](https://addons.opera.com/extensions/details/mwc-wallet).
+This extension can be installed on **Opera** from the [Opera addons store](https://addons.opera.com/extensions/details/mwc-wallet).
 
 This extension can be installed on **Brave** from the [Chrome Web Store](https://chromewebstore.google.com/detail/mwc-wallet/ahhdnimkkpkmclgcnbchlgijhmieongp).
 
