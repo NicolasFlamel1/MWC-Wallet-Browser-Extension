@@ -19,7 +19,7 @@ This extension can be installed on **Safari** by downloading its [newest Safari 
 ### Building
 Run the following command to install the dependencies required to build this browser extension.
 ```
-sudo apt install php php-intl php-mbstring unzip wget grep sed coreutils zip
+sudo apt install php php-intl php-mbstring unzip wget grep sed coreutils findutils zip
 ```
 Then run the following commands to build this browser extension.
 ```
