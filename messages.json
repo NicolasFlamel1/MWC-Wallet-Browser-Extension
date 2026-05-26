@@ -19,5 +19,8 @@
 	},
 	"openInNewWindow": {
 		"message": "<?= escapeString(getTranslation('Open in New Window')); ?>"
+	},
+	"enableWebsiteApi": {
+		"message": "<?= escapeString(getTranslation('Enable Website API')); ?>"
 	}
 }

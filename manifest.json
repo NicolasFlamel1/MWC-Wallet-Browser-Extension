@@ -97,7 +97,8 @@
 				"<all_urls>"
 			],
 			"resources": [
-				"api.js"
+				"api.js",
+				"remove_api.js"
 			]
 		}
 	],

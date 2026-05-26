@@ -8,7 +8,7 @@
 try {
 
 	// Create MWC Wallet
-	var MwcWallet = Object.freeze({
+	window.MwcWallet = Object.freeze({
 	
 		// Public
 		
@@ -24,80 +24,91 @@ try {
 					// Return testing if extension exists
 					return fetch(self.path).then(function() {
 					
-						// Create index
-						const index = Math.random();
+						// Check if MWC Wallet hasn't been deleted
+						if(typeof MwcWallet !== "undefined") {
 						
-						// Get response
-						const getResponse = function(event) {
-						
-							// Check if sender is the content script
-							if(event["origin"] === location["origin"] && typeof event["data"] === "object" && event["data"] !== null && "Response" in event["data"] === true && "Index" in event["data"] === true) {
+							// Create index
+							const index = Math.random();
 							
-								// Check if response is for the request
-								if(event["data"]["Index"] === index) {
+							// Get response
+							const getResponse = function(event) {
+							
+								// Check if sender is the content script
+								if(event["origin"] === location["origin"] && typeof event["data"] === "object" && event["data"] !== null && "Response" in event["data"] === true && "Index" in event["data"] === true) {
 								
-									// Remove message event
-									window.removeEventListener("message", getResponse);
+									// Check if response is for the request
+									if(event["data"]["Index"] === index) {
 									
-									// Check if response was success
-									if(event["data"]["Response"] === true) {
-									
-										// Resolve
-										resolve();
-									}
-									
-									// Otherwise
-									else {
-									
-										// Check if response has an error
-										if("Error" in event["data"] === true) {
+										// Remove message event
+										window.removeEventListener("message", getResponse);
 										
-											// Reject error
-											reject(event["data"]["Error"]);
+										// Check if response was success
+										if(event["data"]["Response"] === true) {
+										
+											// Resolve
+											resolve();
 										}
 										
 										// Otherwise
 										else {
 										
-											// Reject internal error error
-											reject(self.INTERNAL_ERROR_ERROR);
+											// Check if response has an error
+											if("Error" in event["data"] === true) {
+											
+												// Reject error
+												reject(event["data"]["Error"]);
+											}
+											
+											// Otherwise
+											else {
+											
+												// Reject internal error error
+												reject(self.INTERNAL_ERROR_ERROR);
+											}
 										}
 									}
 								}
-							}
-						};
+							};
+							
+							// Message event
+							window.addEventListener("message", getResponse);
+							
+							// Send request to the content script
+							window.postMessage({
+							
+								// Extension ID
+								"Extension ID": self.extensionId,
+								
+								// Wallet type
+								"Wallet Type": walletType,
+								
+								// Network type
+								"Network Type": networkType,
+								
+								// Request
+								"Request": "Start Transaction",
+								
+								// Recipient address
+								"Recipient Address": recipientAddress,
+								
+								// Amount
+								"Amount": amount,
+								
+								// Message
+								"Message": message,
+								
+								// Index
+								"Index": index
+							
+							}, location["origin"]);
+						}
 						
-						// Message event
-						window.addEventListener("message", getResponse);
+						// Otherwis
+						else {
 						
-						// Send request to the content script
-						window.postMessage({
-						
-							// Extension ID
-							"Extension ID": self.extensionId,
-							
-							// Wallet type
-							"Wallet Type": walletType,
-							
-							// Network type
-							"Network Type": networkType,
-							
-							// Request
-							"Request": "Start Transaction",
-							
-							// Recipient address
-							"Recipient Address": recipientAddress,
-							
-							// Amount
-							"Amount": amount,
-							
-							// Message
-							"Message": message,
-							
-							// Index
-							"Index": index
-						
-						}, location["origin"]);
+							// Reject extension not found error
+							reject(self.EXTENSION_NOT_INSTALLED_ERROR);
+						}
 					
 					// Catch errors
 					}).catch(function(error) {

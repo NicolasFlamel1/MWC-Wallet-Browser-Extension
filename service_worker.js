@@ -70,6 +70,9 @@ const OPEN_IN_NEW_TAB_ID = "OPEN_IN_NEW_TAB_ID";
 // Open in new window ID
 const OPEN_IN_NEW_WINDOW_ID = "OPEN_IN_NEW_WINDOW_ID";
 
+// Enable website API ID
+const ENABLE_WEBSITE_API_ID = "ENABLE_WEBSITE_API_ID";
+
 // Wallet types
 const WALLET_TYPES = [
 
@@ -193,6 +196,9 @@ if(typeof ((typeof chrome !== "undefined") ? chrome : browser).management !== "u
 		}).catch(function(error) {
 		
 		});
+		
+		// Remove context script
+		removeContentScript();
 	});
 	
 	// Management uninstalled event
@@ -214,6 +220,9 @@ if(typeof ((typeof chrome !== "undefined") ? chrome : browser).management !== "u
 		}).catch(function(error) {
 		
 		});
+		
+		// Remove context script
+		removeContentScript();
 	});
 }*/
 
@@ -615,6 +624,49 @@ if(typeof ((typeof chrome !== "undefined") ? chrome : browser).management !== "u
 			
 			// Break
 			break;
+		
+		// Enable website API
+		case ENABLE_WEBSITE_API_ID:
+		
+			// Save enable website API
+			((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].set({
+			
+				// Enable website API
+				"Enable Website API": info["checked"]
+			
+			}).then(function() {
+			
+				// Check if enabled
+				if(info["checked"] === true) {
+				
+					// Inject content script
+					injectContentScript();
+				}
+				
+				// Otherwise
+				else {
+				
+					// Remove context script
+					removeContentScript();
+				}
+				
+			// Catch errors
+			}).catch(function(error) {
+			
+				// Update enable website API context menu item
+				((typeof chrome !== "undefined") ? chrome : browser)["contextMenus"].update(ENABLE_WEBSITE_API_ID, {
+				
+					// Checked
+					"checked": info["wasChecked"]
+				
+				// Catch errors
+				}).catch(function(error) {
+				
+				});
+			});
+			
+			// Break
+			break;
 	}
 });
 
@@ -659,6 +711,37 @@ function addContextMenuItems() {
 		
 		// Title
 		"title": sanitizeContextMenuTitle(((typeof chrome !== "undefined") ? chrome : browser)["i18n"].getMessage("openInNewWindow"))
+	});
+	
+	// Get enable website API
+	((typeof chrome !== "undefined") ? chrome : browser)["storage"]["local"].get("Enable Website API").then(function(enableWebsiteApi) {
+	
+		// Create enable website API context menu item
+		((typeof chrome !== "undefined") ? chrome : browser)["contextMenus"].create({
+		
+			// ID
+			"id": ENABLE_WEBSITE_API_ID,
+			
+			// Contexts
+			"contexts": [
+			
+				// Action
+				"action"
+			],
+			
+			// Title
+			"title": sanitizeContextMenuTitle(((typeof chrome !== "undefined") ? chrome : browser)["i18n"].getMessage("enableWebsiteApi")),
+			
+			// Type
+			"type": "checkbox",
+			
+			// Checked
+			"checked": "Enable Website API" in enableWebsiteApi === false || enableWebsiteApi["Enable Website API"] === true
+		});
+	
+	// Catch errors
+	}).catch(function(error) {
+	
 	});
 }
 
@@ -707,6 +790,42 @@ function injectContentScript() {
 				
 				// Catch errors
 				}).catch(function(error) {
+				
+				});
+			}
+		}
+		
+	// Catch errors
+	}).catch(function(error) {
+	
+	});
+}
+
+// Remove content script
+function removeContentScript() {
+
+	// Get all windows
+	((typeof chrome !== "undefined") ? chrome : browser)["windows"].getAll({
+	
+		// Populate
+		"populate": true
+		
+	}).then(function(windows) {
+	
+		// Go through all windows
+		for(let i = 0; i < windows["length"]; ++i) {
+		
+			// Get window
+			const window = windows[i];
+			
+			// Go through all window's tabs
+			for(let j = 0; j < window["tabs"]["length"]; ++j) {
+			
+				// Get tab
+				const tab = window["tabs"][j];
+				
+				// Send message and catch errors
+				((typeof chrome !== "undefined") ? chrome : browser)["tabs"].sendMessage(tab["id"], null).catch(function(error) {
 				
 				});
 			}
@@ -973,6 +1092,6 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 // Sanitize context menu title
 function sanitizeContextMenuTitle(title) {
 
-	// Return escaped title if non-Chrome otherwise return escaped title with all but the first letter changed to lower case
-	return (typeof browser !== "undefined") ? title.replace(/\$/gu, "$$$") : ([...title][0] + [...title].slice(1).join("").toLocaleLowerCase(chrome["i18n"].getUILanguage())).replace(/\$/gu, "$$$");
+	// Return escaped title with all but the first letter changed to lower case if Chrome otherwise return escaped title
+	return (typeof chrome !== "undefined") ? ([...title][0] + [...title].slice(1).join("").toLocaleLowerCase(chrome["i18n"].getUILanguage())).replace(/(?<=^|[^a-z])API(?=[^a-z]|$)/gui, "API").replace(/\$/gu, "$$$") : title.replace(/\$/gu, "$$$");
 }

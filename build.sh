@@ -8,6 +8,7 @@ chmod 777 -R "./temp/"
 cp "./service_worker.js" "./temp/"
 cp "./content_script.js" "./temp/"
 cp "./api.js" "./temp/"
+cp "./remove_api.js" "./temp/"
 
 # Create locales
 mkdir "./temp/_locales"
