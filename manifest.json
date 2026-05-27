@@ -10,7 +10,7 @@
 	"description": "__MSG_description__",
 	"version": "<?= escapeString(VERSION_NUMBER) ?>",
 	"manifest_version": 3,
-	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnC3K94VjIr/3sJ2Xf6SCDZw8xaly7RPm1G+EkQioX+yvMkKfk/BrrRnhbNNcZTzpN1sxtKlhxdrMrfeWriNolLQjMtfBlaKn33pwvHZklcMuiJ9LrrrbCvXsRqcDdPi2l3g5NOa/RNFQY4Taem1euRdFkmwulmXFuxfQOgcYdFMfAZ7G/uZZHmLV4AOg0a8+a85vjhwg/rNt2f34s/88bp6qRbW5uaXdy/kjJpqO7yY7jIJwI02olvSffeagJm1iKpBkSz94ZJEzFixvOChRcywEew+1fMZ950Yq8uDxiM///CREJgFzKwENLFJSToV+exezRdj9hOoqwuh1fd6SaQIDAQAB",
+	"key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoVythxf3gMTrKzZ1azWONT/DPzC4wRi2HYrc1374E00jrY4I3//tQBu2DL7JLuRnYOgTEzmgTMwBvja/AxS+JFoIJWTTnDMWtHuNma2lmloE1Ow1UTS93zWVPej9il3gmZcYK6oJmLmQ/fnxS8uTx49Y9WdodTdwEDgz6PaU2MGHMjAmRLCtlBag0xuYc2m4FCEwSg2YMWloU/rTx6g4sJFOYr0OTVjNk9yBnY8q3Zafs07cYQQ/BuzCZrlAnYSwkZnWYPJm5PZje74EAMRfw6HIOjWfevi9jy31cg+SN+OKGHRCDYBUo3bIF3gq/lRRCD/O9JRWZ8Gc4Phf0D4/TQIDAQAB",
 	"default_locale": "<?= escapeString(preg_replace('/-/u', "_", DEFAULT_LANGUAGE)); ?>",
 	"action": {
 		"default_icon": {<?php
@@ -169,7 +169,7 @@
 	],
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "{d783f67c-4dea-4d64-bfc2-1d4a6057babe}",
+			"id": "{2586b34c-e013-4e50-bcb2-4ba74f4491f7}",
 			"data_collection_permissions": {
 				"required": [
 					"none"

@@ -1092,6 +1092,6 @@ function startTransaction(walletType, networkType, recipientAddress, amount, mes
 // Sanitize context menu title
 function sanitizeContextMenuTitle(title) {
 
-	// Return escaped title with all but the first letter changed to lower case if Chrome otherwise return escaped title
-	return (typeof chrome !== "undefined") ? ([...title][0] + [...title].slice(1).join("").toLocaleLowerCase(chrome["i18n"].getUILanguage())).replace(/(?<=^|[^a-z])API(?=[^a-z]|$)/gui, "API").replace(/\$/gu, "$$$") : title.replace(/\$/gu, "$$$");
+	// Return escaped title if Firefox otherwise return escaped title with all but the first letter changed to lower case if Chrome
+	return ((typeof navigator === "object" && navigator !== null && "userAgent" in navigator === true && navigator["userAgent"].toLowerCase().indexOf("firefox") !== INDEX_NOT_FOUND) || typeof chrome === "undefined") ? title.replace(/\$/gu, "$$$") : ([...title][0] + [...title].slice(1).join("").toLocaleLowerCase(chrome["i18n"].getUILanguage())).replace(/(?<=^|[^a-z])API(?=[^a-z]|$)/gui, "API").replace(/\$/gu, "$$$");
 }
